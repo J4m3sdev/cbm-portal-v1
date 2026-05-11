@@ -110,16 +110,16 @@ body {
   letter-spacing: 0.01em;
 }
 .brand-mark {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 800;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  color: #FFFFFF;
-  background: var(--gold);
-  padding: 6px 9px;
-  border-radius: 5px;
-  line-height: 1;
+  width: 32px;
+  height: 32px;
+  background: #0B2F39;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
+.brand-mark img { width: 20px; height: 20px; object-fit: contain; display: block; }
 .brand-sub {
   font: 600 .57rem 'DM Mono', monospace;
   color: var(--muted); letter-spacing: 0.18em;
@@ -455,7 +455,7 @@ canvas {
   <div id="hdr">
     <a href="../" class="back-link" id="back-link" aria-label="Back to home">← <span data-i18n="back_link">Back</span></a>
     <div class="brand">
-      <div class="brand-mark">CBM</div>
+      <div class="brand-mark"><img src="../assets/CBM-Icon-White.webp" alt="CBM"/></div>
       <div>
         <div class="brand-name">Center for Biblical Missions</div>
         <div class="brand-sub" data-i18n="brand_sub">Graphic Generator</div>
