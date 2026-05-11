@@ -601,13 +601,13 @@ img { max-width: 100%; height: auto; display: block; }
 .step-desc strong { color: var(--ink-anchor); font-weight: 600; }
 
 /* Library panel */
-.library-hero {
+.media-hero {
   position: relative;
   margin: 0 auto;
   max-width: 1180px;
   padding: 56px 32px 0;
 }
-.library-hero-image {
+.media-hero-image {
   position: relative;
   border-radius: 18px;
   overflow: hidden;
@@ -615,19 +615,19 @@ img { max-width: 100%; height: auto; display: block; }
   aspect-ratio: 21/9;
   background: var(--navy-darkest);
 }
-.library-hero-image img {
+.media-hero-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
-.library-hero-image::after {
+.media-hero-image::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, rgba(6,33,42,.85) 0%, rgba(11,47,57,.55) 50%, rgba(6,33,42,.4) 100%);
 }
-.library-hero-text {
+.media-hero-text {
   position: absolute;
   inset: 0;
   display: flex;
@@ -637,7 +637,7 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--white);
   z-index: 2;
 }
-.library-hero-eyebrow {
+.media-hero-eyebrow {
   font-family: var(--mono);
   font-size: 11.5px;
   letter-spacing: 0.30em;
@@ -645,7 +645,7 @@ img { max-width: 100%; height: auto; display: block; }
   text-transform: uppercase;
   margin-bottom: 16px;
 }
-.library-hero-title {
+.media-hero-title {
   font-family: var(--sans);
   font-weight: 800;
   font-size: clamp(28px, 4vw, 50px);
@@ -655,7 +655,7 @@ img { max-width: 100%; height: auto; display: block; }
   margin: 0 0 14px;
   max-width: 600px;
 }
-.library-hero-sub {
+.media-hero-sub {
   font-family: var(--sans);
   font-size: 17px;
   line-height: 1.55;
@@ -789,21 +789,108 @@ img { max-width: 100%; height: auto; display: block; }
   text-transform: uppercase;
 }
 
+/* Guide banner (top of Guide tab) */
+.guide-banner {
+  background: var(--navy-darkest);
+  padding: 48px 32px;
+  text-align: center;
+}
+.guide-banner img {
+  max-width: 260px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  opacity: .92;
+}
+
 /* About panel */
 .about-wrap {
   background: var(--off-white);
-  padding: 80px 32px 100px;
+  padding: 80px 32px 80px;
 }
-.about-grid {
+.about-feature {
   max-width: 1080px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: start;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 64px;
+  align-items: center;
 }
 @media (max-width: 860px) {
-  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .about-feature { grid-template-columns: 1fr; gap: 36px; }
+}
+.about-divider {
+  max-width: 1080px;
+  margin: 64px auto 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+.about-divider::before, .about-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+.about-divider span {
+  width: 6px;
+  height: 6px;
+  background: var(--navy);
+  border-radius: 50%;
+}
+.about-howitworks {
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+}
+.about-howitworks .eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.about-howitworks h2 {
+  font-family: var(--sans);
+  font-size: clamp(28px, 3.2vw, 38px);
+  font-weight: 800;
+  color: var(--ink-anchor);
+  margin: 0 0 40px;
+  letter-spacing: -0.022em;
+  line-height: 1.12;
+}
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 32px;
+  text-align: left;
+}
+@media (max-width: 700px) {
+  .feature-grid { grid-template-columns: 1fr; }
+}
+.tmai-credit {
+  max-width: 1080px;
+  margin: 80px auto 0;
+  padding-top: 48px;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+}
+.tmai-credit img {
+  max-width: 180px;
+  height: auto;
+  margin: 0 auto 16px;
+  display: block;
+  opacity: .85;
+}
+.tmai-credit p {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 0;
 }
 .about-block h2 {
   font-family: var(--sans);
@@ -942,7 +1029,7 @@ img { max-width: 100%; height: auto; display: block; }
   .steps-wrap { padding: 16px 20px 72px; }
   .step { gap: 20px; grid-template-columns: 52px 1fr; }
   .step-num { width: 52px; height: 52px; font-size: 15px; }
-  .library-hero { padding: 36px 20px 0; }
+  .media-hero { padding: 36px 20px 0; }
   .library-section { padding: 56px 20px; }
   .book-image { padding: 28px; }
   .about-wrap { padding: 56px 20px 72px; }
@@ -973,7 +1060,6 @@ img { max-width: 100%; height: auto; display: block; }
   <div class="tabs" role="tablist">
     <button class="tab active" role="tab" data-tab="start" aria-selected="true">Start</button>
     <button class="tab" role="tab" data-tab="guide" aria-selected="false">Guide</button>
-    <button class="tab" role="tab" data-tab="library" aria-selected="false">Library</button>
     <button class="tab" role="tab" data-tab="about" aria-selected="false">About</button>
     <span class="tab-indicator" aria-hidden="true"></span>
   </div>
@@ -994,6 +1080,17 @@ img { max-width: 100%; height: auto; display: block; }
       </a>
     </div>
   </section>
+
+  <div class="media-hero">
+    <div class="media-hero-image">
+      <img src="assets/cbm-site/cbm-hero.jpg" alt="A worker in a field, missions in the Majority World"/>
+      <div class="media-hero-text">
+        <div class="media-hero-eyebrow">CBM in the field</div>
+        <h2 class="media-hero-title">Biblical missions for believers worldwide.</h2>
+        <p class="media-hero-sub">From the textbook to the front line, every source you upload becomes content that carries CBM's voice into the channels your team publishes.</p>
+      </div>
+    </div>
+  </div>
 
   <div class="divider"><span></span></div>
 
@@ -1039,10 +1136,40 @@ img { max-width: 100%; height: auto; display: block; }
       <div class="quote-cite">Massimo Mollica · CBM</div>
     </div>
   </aside>
+
+  <div class="section-head">
+    <div class="section-eyebrow">From CBM's catalog</div>
+    <h2 class="section-title">Faithful ministry, on film.</h2>
+    <p class="section-sub">Documentaries, discussions, and books anchored in the same biblical missiology this tool repurposes.</p>
+  </div>
+
+  <section class="library-section" style="padding-top:16px;">
+    <div class="doc-grid">
+      <a class="doc-card" href="https://cbm.tmai.org" target="_blank" rel="noopener">
+        <div class="doc-thumb"><img src="assets/cbm-site/cbm-myanmar-doc.jpg" alt="Myanmar documentary thumbnail"/></div>
+        <div class="doc-body">
+          <div class="doc-eyebrow">Documentary · 2025</div>
+          <h3 class="doc-title">Myanmar: Rediscovering Sound Theology</h3>
+          <div class="doc-meta">32 minutes</div>
+        </div>
+      </a>
+      <a class="doc-card" href="https://cbm.tmai.org" target="_blank" rel="noopener">
+        <div class="doc-thumb"><img src="assets/cbm-site/cbm-asia-doc.jpg" alt="Asia discussion series thumbnail"/></div>
+        <div class="doc-body">
+          <div class="doc-eyebrow">Discussion Series</div>
+          <h3 class="doc-title">Missions Discussions · Asia</h3>
+          <div class="doc-meta">Multiple episodes</div>
+        </div>
+      </a>
+    </div>
+  </section>
 </div>
 
 <!-- ───── GUIDE ───── -->
 <div class="panel" id="panel-guide" role="tabpanel">
+  <div class="guide-banner">
+    <img src="assets/cbm-site/cbm-wordmark-white.png" alt="CBM wordmark"/>
+  </div>
   <div class="section-head">
     <div class="section-eyebrow">How It Works</div>
     <h2 class="section-title">Five steps, source to publication.</h2>
@@ -1095,101 +1222,38 @@ img { max-width: 100%; height: auto; display: block; }
   </div>
 </div>
 
-<!-- ───── LIBRARY ───── -->
-<div class="panel" id="panel-library" role="tabpanel">
-  <div class="library-hero">
-    <div class="library-hero-image">
-      <img src="assets/cbm-site/cbm-hero.jpg" alt="A worker in a rice field, Asia"/>
-      <div class="library-hero-text">
-        <div class="library-hero-eyebrow">From the CBM Library</div>
-        <h2 class="library-hero-title">Biblical missions content from CBM, ready to repurpose.</h2>
-        <p class="library-hero-sub">The textbook, the documentaries, the articles. Upload any of them as a source and generate faithful secondary content in CBM's voice.</p>
-      </div>
-    </div>
-  </div>
-
-  <section class="library-section">
-    <div class="book-feature">
-      <div class="book-image">
-        <img src="assets/cbm-site/cbm-textbook.png" alt="Biblical Missions textbook cover"/>
-      </div>
-      <div class="book-text">
-        <div class="eyebrow">The Textbook</div>
-        <h2>Biblical Missions: Principles, Priorities, and Practices</h2>
-        <p>A 936-page hardcover combining perspectives from 100 voices across 60 nations of origin or service. Addresses missions theory and faithful field applications in sending countries and Majority World contexts.</p>
-        <p>Edited by Mark Tatlock and Chris Burnett, with foreword and contributions from John MacArthur. Published by Thomas Nelson.</p>
-        <div class="book-meta">
-          <div class="book-meta-item">
-            <div class="label">Format</div>
-            <div class="value">Hardcover · 936 pp</div>
-          </div>
-          <div class="book-meta-item">
-            <div class="label">Voices</div>
-            <div class="value">100 contributors</div>
-          </div>
-          <div class="book-meta-item">
-            <div class="label">Nations</div>
-            <div class="value">60 represented</div>
-          </div>
-          <div class="book-meta-item">
-            <div class="label">Audience</div>
-            <div class="value">Pastors and leaders</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"><span></span></div>
-
-  <div class="section-head">
-    <div class="section-eyebrow">CBM Documentaries</div>
-    <h2 class="section-title">Faithful ministry, on film.</h2>
-    <p class="section-sub">Stories of biblical missions from the field. Both available at cbm.tmai.org.</p>
-  </div>
-
-  <section class="library-section" style="padding-top:16px;">
-    <div class="doc-grid">
-      <a class="doc-card" href="https://cbm.tmai.org" target="_blank" rel="noopener">
-        <div class="doc-thumb"><img src="assets/cbm-site/cbm-myanmar-doc.jpg" alt="Myanmar documentary thumbnail"/></div>
-        <div class="doc-body">
-          <div class="doc-eyebrow">Documentary · 2025</div>
-          <h3 class="doc-title">Myanmar: Rediscovering Sound Theology</h3>
-          <div class="doc-meta">32 minutes</div>
-        </div>
-      </a>
-      <a class="doc-card" href="https://cbm.tmai.org" target="_blank" rel="noopener">
-        <div class="doc-thumb"><img src="assets/cbm-site/cbm-asia-doc.jpg" alt="Asia documentary thumbnail"/></div>
-        <div class="doc-body">
-          <div class="doc-eyebrow">Discussion Series</div>
-          <h3 class="doc-title">Missions Discussions · Asia</h3>
-          <div class="doc-meta">Multiple episodes</div>
-        </div>
-      </a>
-    </div>
-  </section>
-</div>
 
 <!-- ───── ABOUT ───── -->
 <div class="panel" id="panel-about" role="tabpanel">
   <div class="about-wrap">
-    <div class="about-grid">
+    <div class="about-feature">
+      <div class="book-image">
+        <img src="assets/cbm-site/cbm-textbook.png" alt="Biblical Missions textbook cover"/>
+      </div>
       <div class="about-block">
-        <div class="eyebrow">Purpose</div>
+        <div class="eyebrow">Built on the textbook</div>
         <h2>Biblical missions content, made portable.</h2>
-        <p>The Center for Biblical Missions publishes substantial English-language missions content. Articles, books, sermons, and discussions. Each holds dozens to hundreds of pages of work that rarely makes it beyond the original format.</p>
+        <p>The Center for Biblical Missions publishes substantial English-language missions content. Articles, books, sermons, and discussions, including the 936-page <em>Biblical Missions: Principles, Priorities, and Practices</em> textbook with 100 voices across 60 nations.</p>
         <p>This tool turns those existing sources into secondary content on demand. Short pieces suited to newsletters, social media, blog posts, and study materials. Always faithful to the original text, always scripture-grounded, always in CBM's voice.</p>
       </div>
-      <div class="about-block">
-        <div class="eyebrow">How it works</div>
-        <h2>Four principles, built in.</h2>
-        <div class="feature-list">
-          <div class="feature"><div class="feature-num">01</div><div><h3>Dedicated knowledge base</h3><p>Every uploaded source lives in its own namespace. No mixing with other partners' material.</p></div></div>
-          <div class="feature"><div class="feature-num">02</div><div><h3>Faithful to the source</h3><p>The AI is instructed to quote verbatim, preserve terminology, and never add applications the source itself doesn't teach.</p></div></div>
-          <div class="feature"><div class="feature-num">03</div><div><h3>Four output types</h3><p>Q&amp;A · Short article · Key quotes · Social media posts. Each tuned for a specific channel and reading level.</p></div></div>
-          <div class="feature"><div class="feature-num">04</div><div><h3>Reformed-evangelical voice</h3><p>Generates in CBM's missions-focused voice with Scripture references in standard format.</p></div></div>
-        </div>
+    </div>
+
+    <div class="about-divider"><span></span></div>
+
+    <div class="about-howitworks">
+      <div class="eyebrow">How it works</div>
+      <h2>Four principles, built in.</h2>
+      <div class="feature-grid">
+        <div class="feature"><div class="feature-num">01</div><div><h3>Dedicated knowledge base</h3><p>Every uploaded source lives in its own namespace. No mixing with other partners' material.</p></div></div>
+        <div class="feature"><div class="feature-num">02</div><div><h3>Faithful to the source</h3><p>The AI is instructed to quote verbatim, preserve terminology, and never add applications the source itself doesn't teach.</p></div></div>
+        <div class="feature"><div class="feature-num">03</div><div><h3>Four output types</h3><p>Q&amp;A · Short article · Key quotes · Social media posts. Each tuned for a specific channel and reading level.</p></div></div>
+        <div class="feature"><div class="feature-num">04</div><div><h3>Reformed-evangelical voice</h3><p>Generates in CBM's missions-focused voice with Scripture references in standard format.</p></div></div>
       </div>
+    </div>
+
+    <div class="tmai-credit">
+      <img src="assets/cbm-site/tmai-biblical-missions.png" alt="TMAI Biblical Missions"/>
+      <p>A ministry of The Master's Academy International</p>
     </div>
   </div>
 </div>
@@ -1206,7 +1270,6 @@ img { max-width: 100%; height: auto; display: block; }
       <a href="https://cbm.tmai.org" target="_blank" rel="noopener">cbm.tmai.org →</a>
       <a href="#start" data-tab-link="start">Start</a>
       <a href="#guide" data-tab-link="guide">Guide</a>
-      <a href="#library" data-tab-link="library">Library</a>
       <a href="#about" data-tab-link="about">About</a>
     </div>
   </div>
@@ -1220,7 +1283,7 @@ img { max-width: 100%; height: auto; display: block; }
 const tabs = document.querySelectorAll('.tab');
 const panels = document.querySelectorAll('.panel');
 const indicator = document.querySelector('.tab-indicator');
-const validTabs = ['start', 'guide', 'library', 'about'];
+const validTabs = ['start', 'guide', 'about'];
 
 function moveIndicator() {
   const active = document.querySelector('.tab.active');
