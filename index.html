@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="Center for Biblical Missions content tool. Repurpose your missions library into Q&A, articles, key quotes, and social posts."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://j4m3sdev.github.io/cbm-portal-v1/"/>
+<meta property="og:title" content="Center for Biblical Missions · Content Tool"/>
+<meta property="og:description" content="Repurpose your missions library into Q&A, articles, key quotes, and social posts."/>
+<meta property="og:image" content="https://j4m3sdev.github.io/cbm-portal-v1/og.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Center for Biblical Missions · Content Tool"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Center for Biblical Missions · Content Tool"/>
+<meta name="twitter:description" content="Repurpose your missions library into Q&A, articles, key quotes, and social posts."/>
+<meta name="twitter:image" content="https://j4m3sdev.github.io/cbm-portal-v1/og.png"/>
+<title>Center for Biblical Missions · Content Tool</title>
+<meta name="theme-color" content="#FFFFFF"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%23114D5D'/><text x='50' y='66' font-size='44' font-weight='800' font-family='Inter,system-ui,sans-serif' text-anchor='middle' fill='white' letter-spacing='1'>CBM</text></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --white:        #FFFFFF;
+  --off-white:    #F7F9FA;
+  --paper:        #FCFDFE;
+  --ink:          #1F2937;
+  --ink-anchor:   #0B2F39;
+  --ink-soft:     #4B5563;
+  --ink-muted:    #6B7280;
+  --rule:         #E5E7EB;
+  --rule-strong:  #C8D0DA;
+  --navy:         #114D5D;
+  --navy-deep:    #0B2F39;
+  --navy-darkest: #06212A;
+  --navy-bright:  #1A6E84;
+  --navy-soft:    rgba(17,77,93,.06);
+  --navy-glow:    rgba(17,77,93,.14);
+  --shadow-sm:    0 1px 3px rgba(11,47,57,.05);
+  --shadow-md:    0 4px 16px rgba(11,47,57,.06), 0 1px 3px rgba(11,47,57,.04);
+  --shadow-lg:    0 20px 60px rgba(11,47,57,.12), 0 4px 16px rgba(11,47,57,.06);
+  --shadow-glow:  0 0 0 1px rgba(17,77,93,.20), 0 24px 56px rgba(11,47,57,.14);
+  --sans:         'Inter', system-ui, -apple-system, sans-serif;
+  --mono:         'DM Mono', ui-monospace, monospace;
+  --r-card:       14px;
+  --r-btn:        8px;
+  --ease:         cubic-bezier(.22,.61,.36,1);
+  --ease-out:     cubic-bezier(.16,1,.3,1);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--navy); text-decoration: none; transition: color .2s var(--ease); }
+a:hover { color: var(--navy-bright); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+/* ── Topline navy bar ─────────────────────────────────────── */
+.topline {
+  background: var(--navy-darkest);
+  color: rgba(255,255,255,.78);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 9px 16px;
+}
+.topline a { color: #FFFFFF; border-bottom: 1px solid rgba(255,255,255,.4); }
+.topline a:hover { color: #FFFFFF; border-bottom-color: #FFFFFF; }
+
+/* ── Header ────────────────────────────────────────────────── */
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: saturate(120%) blur(6px);
+}
+.header-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 22px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+.brand {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  gap: 3px;
+}
+.brand-name {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: -0.012em;
+  color: var(--ink-anchor);
+  line-height: 1.1;
+}
+.brand-sub {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--navy);
+  text-transform: uppercase;
+}
+.nav-anchors {
+  display: flex;
+  gap: 32px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.nav-anchors a {
+  color: var(--ink-soft);
+}
+.nav-anchors a:hover { color: var(--ink-anchor); }
+@media (max-width: 800px) { .nav-anchors { display: none; } }
+
+/* ── Hero ──────────────────────────────────────────────────── */
+.hero {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 120px 32px 80px;
+  text-align: center;
+  position: relative;
+}
+.hero > * {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: rise .85s var(--ease-out) forwards;
+}
+.hero > *:nth-child(1) { animation-delay: .05s; }
+.hero > *:nth-child(2) { animation-delay: .18s; }
+.hero > *:nth-child(3) { animation-delay: .32s; }
+.hero > *:nth-child(4) { animation-delay: .48s; }
+@keyframes rise { to { opacity: 1; transform: none; } }
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.30em;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--navy);
+  opacity: .55;
+}
+.hero-title {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: clamp(44px, 6.2vw, 78px);
+  line-height: 1.05;
+  letter-spacing: -0.028em;
+  color: var(--ink-anchor);
+  margin: 0 0 26px;
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-title em {
+  font-style: normal;
+  color: var(--navy);
+  position: relative;
+  white-space: nowrap;
+}
+.hero-sub {
+  font-family: var(--sans);
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 640px;
+  margin: 0 auto 36px;
+}
+.hero-ctas {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  padding: 16px 30px;
+  border-radius: var(--r-btn);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease), transform .15s ease, box-shadow .25s var(--ease);
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--ink-anchor);
+  color: var(--white);
+  border-color: var(--ink-anchor);
+  box-shadow: 0 4px 14px rgba(11,47,57,.18);
+}
+.btn-primary:hover { background: var(--navy); border-color: var(--navy); color: var(--white); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(17,77,93,.28); }
+.btn-secondary {
+  background: var(--white);
+  color: var(--navy);
+  border-color: var(--rule-strong);
+}
+.btn-secondary:hover { color: var(--navy-deep); border-color: var(--navy); background: var(--navy-soft); }
+.btn .arrow { transition: transform .2s ease; display: inline-block; }
+.btn:hover .arrow { transform: translateX(3px); }
+
+/* ── Divider ───────────────────────────────────────────────── */
+.divider {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+.divider span {
+  width: 6px;
+  height: 6px;
+  background: var(--navy);
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+.divider span::before, .divider span::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--navy);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+}
+.divider span::before { left: -14px; opacity: .45; }
+.divider span::after  { left: 14px; opacity: .45; }
+
+/* ── Section wrapper ─────────────────────────────────────── */
+section { scroll-margin-top: 100px; }
+.section-head {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 80px 32px 36px;
+  text-align: center;
+}
+.section-eyebrow {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.30em;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: clamp(30px, 3.8vw, 44px);
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+  color: var(--ink-anchor);
+  margin: 0 0 14px;
+}
+.section-sub {
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* ── Pillar cards ────────────────────────────────────────── */
+.pillars-wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px 32px 80px;
+}
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+.pillar {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-card);
+  padding: 48px 40px 40px;
+  position: relative;
+  transition: transform .35s var(--ease-out), box-shadow .35s var(--ease-out), border-color .35s var(--ease-out), background .35s var(--ease);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  min-height: 380px;
+  overflow: hidden;
+}
+.pillar::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; right: 0;
+  height: 3px;
+  background: var(--navy);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .4s var(--ease-out);
+  border-radius: var(--r-card) var(--r-card) 0 0;
+}
+.pillar:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-glow);
+  border-color: var(--navy);
+  background: var(--white);
+}
+.pillar:hover::before { transform: scaleX(1); }
+.pillar-step {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.pillar-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: var(--navy-soft);
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+  transition: background .3s var(--ease), color .3s var(--ease);
+}
+.pillar:hover .pillar-icon { background: var(--navy); color: var(--white); }
+.pillar-icon svg { width: 24px; height: 24px; stroke-width: 1.8; }
+.pillar-title {
+  font-family: var(--sans);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink-anchor);
+  margin: 0 0 14px;
+  letter-spacing: -0.018em;
+}
+.pillar-desc {
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  margin: 0 0 30px;
+  flex: 1;
+}
+.pillar-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--navy-deep);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  align-self: flex-start;
+  border-bottom: 1.5px solid var(--navy);
+  padding-bottom: 4px;
+  transition: color .2s ease, border-color .2s ease, gap .2s ease;
+}
+.pillar-cta:hover { color: var(--navy); gap: 14px; }
+
+.pillar-footer {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.pulse-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #16a34a;
+  position: relative;
+  flex-shrink: 0;
+}
+.pulse-dot::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: rgba(22,163,74,.55);
+  animation: pulse 2.4s var(--ease-out) infinite;
+}
+@keyframes pulse {
+  0%   { transform: scale(.9); opacity: .8; }
+  60%  { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* ── Quote band ────────────────────────────────────────────── */
+.quote-band {
+  background: var(--navy-darkest);
+  color: var(--white);
+  padding: 110px 32px;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+}
+.quote-band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(26,110,132,.4), transparent 50%), radial-gradient(circle at 80% 80%, rgba(238,109,73,.08), transparent 40%);
+  pointer-events: none;
+}
+.quote-band > * { position: relative; }
+.quote-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+}
+.quote-mark {
+  font-family: 'Inter', serif;
+  font-size: 84px;
+  line-height: 1;
+  color: var(--navy-bright);
+  margin-bottom: -28px;
+  font-weight: 900;
+}
+.quote-text {
+  font-family: var(--sans);
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.018em;
+  color: var(--white);
+  margin: 0 0 36px;
+}
+.quote-cite {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.20em;
+  color: rgba(255,255,255,.65);
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+.quote-cite::before {
+  content: '';
+  display: inline-block;
+  width: 36px;
+  height: 1px;
+  background: rgba(255,255,255,.5);
+}
+
+/* ── Steps timeline ──────────────────────────────────────── */
+.steps-wrap {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 16px 32px 100px;
+}
+.steps { position: relative; padding-left: 8px; }
+.steps::before {
+  content: '';
+  position: absolute;
+  left: 32px; top: 24px; bottom: 24px;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--navy) 14%, var(--navy) 86%, transparent);
+  opacity: .35;
+  border-radius: 1px;
+}
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 32px;
+  padding: 28px 4px 28px 0;
+  align-items: start;
+}
+.step-num {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1.5px solid var(--rule-strong);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  z-index: 1;
+  font-family: var(--sans);
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--navy);
+  box-shadow: var(--shadow-sm);
+  transition: all .35s var(--ease);
+  letter-spacing: -0.02em;
+}
+.step:hover .step-num {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+  box-shadow: var(--shadow-glow);
+  transform: scale(1.06);
+}
+.step-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.step-title {
+  font-family: var(--sans);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink-anchor);
+  margin: 0 0 10px;
+  letter-spacing: -0.014em;
+}
+.step-desc {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.step-desc strong { color: var(--ink-anchor); font-weight: 600; }
+
+/* ── About / mission ─────────────────────────────────────── */
+.about-wrap {
+  background: var(--off-white);
+  padding: 100px 32px;
+}
+.about-grid {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+}
+.about-block h2 {
+  font-family: var(--sans);
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 800;
+  color: var(--ink-anchor);
+  margin: 0 0 22px;
+  letter-spacing: -0.022em;
+  line-height: 1.15;
+}
+.about-block .eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.about-block p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  margin: 0 0 16px;
+}
+.feature-list {
+  display: grid;
+  gap: 4px;
+  margin-top: 4px;
+}
+.feature {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: start;
+}
+.feature:last-child { border-bottom: none; }
+.feature-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  color: var(--navy);
+  padding-top: 3px;
+}
+.feature h3 {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink-anchor);
+  margin: 0 0 6px;
+  letter-spacing: -0.005em;
+}
+.feature p {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ── Footer ────────────────────────────────────────────────── */
+.site-footer {
+  background: var(--navy-darkest);
+  color: rgba(255,255,255,.72);
+}
+.footer-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 60px 32px 40px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: end;
+}
+@media (max-width: 700px) {
+  .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+}
+.footer-brand-name {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.012em;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.footer-brand-sub {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 22px;
+}
+.footer-desc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255,255,255,.72);
+  max-width: 420px;
+  margin: 0;
+}
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+}
+@media (max-width: 700px) {
+  .footer-links { align-items: flex-start; }
+}
+.footer-links a {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(255,255,255,.85);
+  transition: color .2s ease;
+}
+.footer-links a:hover { color: var(--white); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.10);
+  margin-top: 0;
+  padding: 22px 32px 32px;
+  max-width: 1180px;
+  margin: 0 auto;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  color: rgba(255,255,255,.45);
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .header-inner { padding: 16px 20px; }
+  .hero { padding: 72px 20px 56px; }
+  .pillars-wrap { padding: 16px 20px 56px; }
+  .pillar { padding: 36px 28px 32px; }
+  .quote-band { padding: 80px 20px; }
+  .steps-wrap { padding: 16px 20px 72px; }
+  .step { gap: 20px; grid-template-columns: 52px 1fr; }
+  .step-num { width: 52px; height: 52px; font-size: 15px; }
+  .about-wrap { padding: 72px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topline">Center for Biblical Missions · Internal Content Tool · v1</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#" class="brand" aria-label="Center for Biblical Missions">
+      <div class="brand-name">Center for Biblical Missions</div>
+      <div class="brand-sub">Content Tool</div>
+    </a>
+    <nav class="nav-anchors" aria-label="Page sections">
+      <a href="#tools">Tools</a>
+      <a href="#guide">Guide</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-eyebrow">Biblical Missions Content Repurposer</div>
+  <h1 class="hero-title">From your library to <em>every channel</em>, faithfully.</h1>
+  <p class="hero-sub">Upload an article, sermon, or book chapter. Get Q&amp;A, articles, key quotes, and social posts that stay true to CBM's voice and Scripture.</p>
+  <div class="hero-ctas">
+    <a class="btn btn-primary" href="https://modulusai.app.n8n.cloud/form/87597199-a791-47cb-a72b-50991020459c" target="_blank" rel="noopener" id="btn-upload-hero">
+      Upload Source <span class="arrow">→</span>
+    </a>
+    <a class="btn btn-secondary" href="https://modulusai.app.n8n.cloud/form/14a6129e-1f79-4409-868e-2b5220b4762a" target="_blank" rel="noopener" id="btn-generate-hero">
+      Generate Content
+    </a>
+  </div>
+</section>
+
+<div class="divider"><span></span></div>
+
+<section id="tools">
+  <div class="section-head">
+    <div class="section-eyebrow">Three Tools, One Workflow</div>
+    <h2 class="section-title">Repurpose. Generate. Visualize.</h2>
+    <p class="section-sub">Built on the CBM knowledge base. Every output traces back to your uploaded source material.</p>
+  </div>
+
+  <div class="pillars-wrap">
+    <div class="pillars">
+
+      <div class="pillar">
+        <div class="pillar-step">Step 01</div>
+        <div class="pillar-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v14"/><path d="m6 9 6-6 6 6"/><path d="M5 21h14"/></svg>
+        </div>
+        <h3 class="pillar-title">Upload Source</h3>
+        <p class="pillar-desc">Add source material to the CBM knowledge base. An article, sermon, book chapter, or PDF. The file is automatically split, indexed, and stored in its own namespace.</p>
+        <a class="pillar-cta" href="https://modulusai.app.n8n.cloud/form/87597199-a791-47cb-a72b-50991020459c" target="_blank" rel="noopener" id="btn-upload">
+          Open Upload Form →
+        </a>
+        <div class="pillar-footer">
+          <span class="pulse-dot"></span> Form active
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-step">Step 02</div>
+        <div class="pillar-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
+        </div>
+        <h3 class="pillar-title">Generate Content</h3>
+        <p class="pillar-desc">Pick a source, choose an output (Q&amp;A, article, key quotes, or social posts), and let the AI produce faithful, scripture-grounded text in CBM's voice.</p>
+        <a class="pillar-cta" href="https://modulusai.app.n8n.cloud/form/14a6129e-1f79-4409-868e-2b5220b4762a" target="_blank" rel="noopener" id="btn-generate">
+          Open Generator →
+        </a>
+        <div class="pillar-footer">
+          <span class="pulse-dot"></span> Form active
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-step">Step 03</div>
+        <div class="pillar-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+        </div>
+        <h3 class="pillar-title">Make a Graphic</h3>
+        <p class="pillar-desc">Drop a verse or pull-quote into the graphic generator and produce a polished image for Instagram, Facebook, or the blog. Export as PNG or JPG.</p>
+        <a class="pillar-cta" href="generator/" id="btn-graphic">
+          Open Generator →
+        </a>
+        <div class="pillar-footer">
+          <span class="pulse-dot"></span> Tool active
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<aside class="quote-band" aria-label="Featured quote">
+  <div class="quote-inner">
+    <div class="quote-mark">"</div>
+    <p class="quote-text">God is sovereign in salvation, and at times uses the most unexpected means to draw people to Himself so that He receives all the glory.</p>
+    <div class="quote-cite">Massimo Mollica · CBM</div>
+  </div>
+</aside>
+
+<section id="guide">
+  <div class="section-head">
+    <div class="section-eyebrow">How It Works</div>
+    <h2 class="section-title">Five steps, source to publication.</h2>
+    <p class="section-sub">From file upload to social-ready content, the tool stays close to the original text at every stage.</p>
+  </div>
+
+  <div class="steps-wrap">
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <div class="step-eyebrow">Step 1 · Upload</div>
+          <h3 class="step-title">Upload a Source</h3>
+          <p class="step-desc">Open the <strong>upload form</strong> and pick a file. An article, book chapter, sermon, or PDF. After submission, the text is automatically split, indexed, and stored in its own namespace. Larger sources take 1 to 3 minutes.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <div class="step-eyebrow">Step 2 · Generate</div>
+          <h3 class="step-title">Generate Text</h3>
+          <p class="step-desc">Open the <strong>content generator</strong>, pick the uploaded source, and choose an output type: Q&amp;A, article, key quotes, or social posts. Add specific topics or audience notes if helpful.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <div class="step-eyebrow">Step 3 · Review</div>
+          <h3 class="step-title">Review the Output</h3>
+          <p class="step-desc">The finished text appears in reading mode with <strong>Copy HTML</strong> and <strong>Copy Text</strong> buttons. Before publishing, scan Scripture references and tone. The AI is set to quote verbatim and stay close to the source.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div>
+          <div class="step-eyebrow">Step 4 · Graphic</div>
+          <h3 class="step-title">Make a Graphic</h3>
+          <p class="step-desc">Open the <strong>graphic generator</strong>, paste a verse or pull-quote into the main field, and pick a format. Adjust font, colors, and background. Export as PNG, JPG, or copy to clipboard.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div>
+          <div class="step-eyebrow">Step 5 · Publish</div>
+          <h3 class="step-title">Use it in Comms</h3>
+          <p class="step-desc">Drop the text and graphic into a newsletter, blog, social post, or print material. Everything is written in CBM's voice: faithful to Scripture, doctrinally precise, missions-focused.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about-wrap">
+  <div class="about-grid">
+
+    <div class="about-block">
+      <div class="eyebrow">Purpose</div>
+      <h2>Biblical missions content, made portable.</h2>
+      <p>The Center for Biblical Missions publishes substantial English-language missions content. Articles, books, sermons, and discussions. Each holds dozens to hundreds of pages of work that rarely makes it beyond the original format.</p>
+      <p>This tool turns those existing sources into secondary content on demand. Short pieces suited to newsletters, social media, blog posts, and study materials. Always faithful to the original text, always scripture-grounded, always in CBM's voice.</p>
+    </div>
+
+    <div class="about-block">
+      <div class="eyebrow">How it works</div>
+      <h2>Four principles, built in.</h2>
+      <div class="feature-list">
+        <div class="feature">
+          <div class="feature-num">01</div>
+          <div>
+            <h3>Dedicated knowledge base</h3>
+            <p>Every uploaded source lives in its own namespace. No mixing with other partners' material.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-num">02</div>
+          <div>
+            <h3>Faithful to the source</h3>
+            <p>The AI is instructed to quote verbatim, preserve terminology, and never add applications the source itself doesn't teach.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-num">03</div>
+          <div>
+            <h3>Four output types</h3>
+            <p>Q&amp;A · Short article · Key quotes · Social media posts. Each tuned for a specific channel and reading level.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-num">04</div>
+          <div>
+            <h3>Reformed-evangelical voice</h3>
+            <p>Generates in CBM's missions-focused voice with Scripture references in standard format.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">Center for Biblical Missions</div>
+      <div class="footer-brand-sub">Content Tool · v1</div>
+      <p class="footer-desc">An internal content repurposing tool for CBM, built on the n8n + Pinecone stack. Source material stays in CBM's dedicated namespace.</p>
+    </div>
+    <div class="footer-links">
+      <a href="https://cbm.tmai.org" target="_blank" rel="noopener">cbm.tmai.org →</a>
+      <a href="#tools">Tools</a>
+      <a href="#guide">Guide</a>
+      <a href="#about">About</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© Center for Biblical Missions, a ministry of TMAI</span>
+    <span>Built for CBM · 2026</span>
+  </div>
+</footer>
+
+<script>
+['btn-upload', 'btn-generate', 'btn-upload-hero', 'btn-generate-hero', 'btn-graphic'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('click', () => {
+    console.log(`[cbm-portal] action=${id} ts=${new Date().toISOString()}`);
+  });
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>

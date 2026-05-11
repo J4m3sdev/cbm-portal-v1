@@ -1,0 +1,2302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="Center for Biblical Missions graphic generator. Build verse and pull-quote graphics for Instagram, Facebook, and beyond."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://j4m3sdev.github.io/cbm-portal-v1/generator/"/>
+<meta property="og:title" content="Center for Biblical Missions · Graphic Generator"/>
+<meta property="og:description" content="Build verse and pull-quote graphics for Instagram, Facebook, and beyond."/>
+<meta property="og:image" content="https://j4m3sdev.github.io/cbm-portal-v1/og.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Center for Biblical Missions · Graphic Generator"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Center for Biblical Missions · Graphic Generator"/>
+<meta name="twitter:description" content="Build verse and pull-quote graphics for Instagram, Facebook, and beyond."/>
+<meta name="twitter:image" content="https://j4m3sdev.github.io/cbm-portal-v1/og.png"/>
+<title>Center for Biblical Missions · Graphic Generator</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%23114D5D'/><text x='50' y='66' font-size='44' font-weight='800' font-family='Inter,system-ui,sans-serif' text-anchor='middle' fill='white' letter-spacing='1'>CBM</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=DM+Mono:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #FFFFFF;
+  --panel: #ffffff;
+  --panel2: #F5F7F8;
+  --panel3: #EBEFF2;
+  --border: #E5E7EB;
+  --border2: #C8D0DA;
+  --text: #1F2937;
+  --text-anchor: #0B2F39;
+  --muted: #6B7280;
+  --muted2: #4B5563;
+  --gold: #114D5D;
+  --gold2: #1A6E84;
+  --gold3: #0B2F39;
+  --gold-soft: rgba(17,77,93,.10);
+  --warm: #EE6D49;
+  --green: #16a34a;
+  --red: #C13030;
+  --shadow-card: 0 1px 3px rgba(11,47,57,.05);
+  --shadow-elev: 0 12px 38px rgba(11,47,57,.10), 0 2px 8px rgba(11,47,57,.06);
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --ease-out: cubic-bezier(.16,1,.3,1);
+}
+[data-theme="dark"] {
+  --bg: #1B1D21;
+  --panel: #22252A;
+  --panel2: #15171A;
+  --panel3: #2A2D33;
+  --border: #2E3138;
+  --border2: #44484F;
+  --text: #E5E7EB;
+  --text-anchor: #FFFFFF;
+  --muted: #8B8E96;
+  --muted2: #C5C7CC;
+  --gold: #1A6E84;
+  --gold2: #2A8AA1;
+  --gold3: #114D5D;
+  --gold-soft: rgba(26,110,132,.18);
+  --warm: #EE6D49;
+  --green: #4ade80;
+  --red: #E45656;
+  --shadow-card: 0 1px 3px rgba(0,0,0,.3);
+  --shadow-elev: 0 18px 50px rgba(0,0,0,.5), 0 4px 12px rgba(0,0,0,.35);
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  display: flex; height: 100vh; overflow: hidden;
+  background: var(--bg); color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: background .35s var(--ease), color .35s var(--ease);
+}
+
+/* ── Sidebar ── */
+#sidebar {
+  width: 420px; min-width: 320px; height: 100vh;
+  display: flex; flex-direction: column; flex-shrink: 0;
+  background: var(--panel); border-right: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* Header */
+#hdr {
+  padding: 18px 20px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+  background: linear-gradient(120deg, var(--gold-soft) 0%, transparent 60%);
+  transition: background .35s var(--ease), border-color .35s var(--ease);
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-icon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.brand-name {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: .92rem;
+  color: var(--text); line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+.brand-mark {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+  background: var(--gold);
+  padding: 6px 9px;
+  border-radius: 5px;
+  line-height: 1;
+}
+.brand-sub {
+  font: 600 .57rem 'DM Mono', monospace;
+  color: var(--muted); letter-spacing: 0.18em;
+  text-transform: uppercase; margin-top: 4px;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 600 .58rem 'DM Mono', monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  text-decoration: none;
+  padding: 6px 10px 6px 6px;
+  margin-right: 4px;
+  border-radius: 5px;
+  transition: color .15s ease, background .15s ease;
+}
+.back-link:hover {
+  color: var(--gold);
+  background: rgba(184, 137, 61, 0.08);
+}
+.hdr-right { display: flex; align-items: center; gap: 8px; }
+.icon-btn {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--panel);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: var(--text);
+  transition: border-color .2s var(--ease), transform .2s var(--ease), background .2s var(--ease);
+}
+.icon-btn:hover { border-color: var(--gold); transform: rotate(15deg); }
+.icon-btn:active { transform: rotate(15deg) scale(.92); }
+.lang-row {
+  display: flex; background: var(--panel); border-radius: 999px;
+  padding: 3px; gap: 0; border: 1px solid var(--border);
+  transition: border-color .2s var(--ease);
+}
+.lang-btn {
+  border: none; background: transparent; color: var(--muted);
+  padding: 5px 10px; border-radius: 999px;
+  font: 600 .6rem 'DM Mono', monospace; cursor: pointer; letter-spacing: .8px;
+  transition: background .2s var(--ease), color .2s var(--ease), transform .15s var(--ease);
+}
+.lang-btn:hover { color: var(--text); }
+.lang-btn:active { transform: scale(.95); }
+.lang-btn.active { background: var(--text-anchor); color: #fff; }
+[data-theme="dark"] .lang-btn.active { background: var(--gold); color: #1a0f00; }
+
+/* Tabs */
+#tabs {
+  display: flex; padding: 8px 18px 0; gap: 2px;
+  border-bottom: 1px solid var(--border); flex-shrink: 0; overflow-x: auto;
+}
+#tabs::-webkit-scrollbar { height: 0; }
+.tab {
+  padding: 8px 10px; font: 500 .6rem 'DM Mono', monospace;
+  letter-spacing: .8px; text-transform: uppercase; color: var(--muted);
+  cursor: pointer; border-bottom: 2px solid transparent; transition: all .14s; white-space: nowrap;
+}
+.tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+.tab:hover:not(.active) { color: var(--muted2); }
+
+/* Panels */
+#panels {
+  flex: 1; overflow-y: auto; padding: 16px 18px;
+  scrollbar-width: thin; scrollbar-color: var(--panel3) transparent;
+}
+#panels::-webkit-scrollbar { width: 4px; }
+#panels::-webkit-scrollbar-thumb { background: var(--panel3); border-radius: 4px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* Show/hide chathura weight selector */
+
+.sec-sub {
+  font: 600 .57rem 'DM Mono', monospace; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--gold);
+  margin: 10px 0 6px; opacity: .85;
+}
+/* Section heading */
+.sec-title {
+  font: 600 .58rem 'DM Mono', monospace; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gold3);
+  margin: 18px 0 10px;
+}
+.sec-title:first-child { margin-top: 2px; }
+.divider { height: 14px; }
+
+/* Field */
+.field { margin-bottom: 11px; }
+.field-label {
+  display: flex; justify-content: space-between; margin-bottom: 6px;
+  font: 500 .78rem 'Inter', system-ui, sans-serif; letter-spacing: .1px;
+  color: var(--muted2);
+}
+.field-label .val { color: var(--gold); }
+textarea, input[type=text] {
+  width: 100%; background: var(--panel); border: 1px solid var(--border);
+  color: var(--text); border-radius: 6px; padding: 9px 11px;
+  font: 400 .82rem 'Inter', system-ui, sans-serif; line-height: 1.55;
+  outline: none; resize: vertical; transition: border-color .14s, box-shadow .14s;
+}
+textarea:focus, input[type=text]:focus {
+  border-color: var(--gold); box-shadow: 0 0 0 3px rgba(196,154,42,.12);
+}
+input[type=range] { width: 100%; accent-color: var(--gold); cursor: pointer; }
+input[type=color] {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 2px solid var(--border2); cursor: pointer; padding: 0; background: none; flex-shrink: 0;
+}
+
+/* Option button group */
+.opt-group { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+.opt-btn {
+  border: 1px solid var(--border); background: var(--panel2); color: var(--muted2);
+  border-radius: 7px; padding: 6px 11px;
+  font: 500 .62rem 'DM Mono', monospace; cursor: pointer; transition: all .14s; white-space: nowrap;
+}
+.opt-btn:hover { border-color: var(--border2); color: var(--text); }
+.opt-btn.active { background: var(--gold); border-color: var(--gold); color: #1a0f00; }
+
+/* Swatches */
+.swatch-row { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+.swatch {
+  width: 24px; height: 24px; border-radius: 50%; cursor: pointer;
+  border: 2px solid transparent; transition: transform .14s, border-color .14s; flex-shrink: 0;
+}
+.swatch:hover { transform: scale(1.18); }
+.swatch.active { border-color: #fff; box-shadow: 0 0 0 2px var(--gold); transform: scale(1.12); }
+
+/* Upload zones */
+.upload-zone {
+  border: 1.5px dashed rgba(196,154,42,.4); border-radius: 8px; padding: 14px;
+  text-align: center; cursor: pointer; transition: all .18s;
+  background: rgba(196,154,42,.05); margin-bottom: 8px;
+}
+.upload-zone:hover, .upload-zone.dragging {
+  border-color: rgba(196,154,42,.75); background: rgba(196,154,42,.1);
+}
+.upload-zone.has-file { border-style: solid; border-color: rgba(196,154,42,.6); }
+.upload-zone .uz-icon { font-size: 1.3rem; margin-bottom: 4px; }
+.upload-zone .uz-title { font: 600 .7rem 'DM Mono', monospace; color: var(--gold); margin-bottom: 2px; }
+.upload-zone .uz-sub { font: .58rem 'DM Mono', monospace; color: var(--muted); }
+.logo-zone {
+  border: 1.5px dashed var(--border); border-radius: 8px; padding: 10px;
+  text-align: center; cursor: pointer; transition: all .18s;
+  font: 500 .62rem 'DM Mono', monospace; color: var(--muted); margin-bottom: 8px;
+}
+.logo-zone:hover { border-color: var(--border2); color: var(--text); }
+
+/* Extra label blocks */
+.xblock {
+  background: var(--panel2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px; margin-bottom: 8px;
+}
+.xblock-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px;
+}
+.xblock-title {
+  font: 600 .57rem 'DM Mono', monospace; color: var(--muted2);
+  letter-spacing: .8px; text-transform: uppercase;
+}
+.xblock-del {
+  border: none; background: none; color: var(--muted); cursor: pointer;
+  font-size: .82rem; padding: 2px 6px; border-radius: 4px; transition: color .14s;
+}
+.xblock-del:hover { color: var(--red); }
+.add-xblock-btn {
+  width: 100%; border: 1.5px dashed rgba(196,154,42,.35);
+  background: rgba(196,154,42,.04); color: var(--gold);
+  border-radius: 8px; padding: 8px;
+  font: 600 .62rem 'DM Mono', monospace; cursor: pointer; transition: all .15s; margin-bottom: 8px;
+}
+.add-xblock-btn:hover { background: rgba(196,154,42,.1); border-color: rgba(196,154,42,.6); }
+
+/* Date row */
+.date-row { display: flex; gap: 6px; align-items: flex-start; }
+.date-row input { flex: 1; }
+.today-btn {
+  border: 1px solid var(--border); background: var(--panel2); color: var(--gold);
+  border-radius: 8px; padding: 9px 10px;
+  font: 600 .6rem 'DM Mono', monospace; cursor: pointer; white-space: nowrap;
+  transition: border-color .14s; flex-shrink: 0;
+}
+.today-btn:hover { border-color: var(--gold); }
+
+/* Undo bar */
+#undo-bar {
+  display: flex; align-items: center; gap: 6px; padding: 9px 18px;
+  border-top: 1px solid var(--border); background: var(--panel2); flex-shrink: 0;
+}
+.undo-btn {
+  border: 1px solid var(--border); background: var(--panel); color: var(--muted2);
+  border-radius: 6px; padding: 5px 12px;
+  font: 500 .61rem 'DM Mono', monospace; cursor: pointer; transition: all .14s;
+}
+.undo-btn:hover:not(:disabled) { border-color: var(--border2); color: var(--text); }
+.undo-btn:disabled { opacity: .3; cursor: default; }
+#hist-count { font: .5rem 'DM Mono', monospace; color: var(--muted); flex: 1; text-align: right; }
+
+/* Export footer */
+#footer {
+  display: flex; gap: 6px; padding: 11px 18px;
+  border-top: 1px solid var(--border); flex-shrink: 0;
+}
+.exp-btn {
+  flex: 1; border: none; border-radius: 8px; padding: 10px 6px;
+  font: 700 .66rem 'DM Mono', monospace; letter-spacing: .7px;
+  text-transform: uppercase; cursor: pointer; transition: all .16s;
+}
+.exp-btn.primary {
+  background: var(--text-anchor); color: #fff;
+  letter-spacing: 1.4px;
+  position: relative;
+  overflow: hidden;
+}
+.exp-btn.primary::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.18) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform .55s var(--ease-out);
+}
+.exp-btn.primary:hover { background: var(--gold); transform: translateY(-1px); }
+.exp-btn.primary:hover::before { transform: translateX(100%); }
+[data-theme="dark"] .exp-btn.primary { background: var(--gold); color: #1a0f00; }
+[data-theme="dark"] .exp-btn.primary:hover { background: var(--gold2); }
+.exp-btn.secondary {
+  background: var(--panel2); color: var(--muted2); border: 1px solid var(--border);
+}
+.exp-btn.secondary:hover { border-color: var(--border2); color: var(--text); }
+#saved-pill {
+  display: none; align-items: center; padding: 5px 10px;
+  background: rgba(22,163,74,.12); border: 1px solid rgba(22,163,74,.3);
+  border-radius: 20px; font: 600 .6rem 'DM Mono', monospace; color: var(--green); white-space: nowrap;
+}
+
+
+.clear-bg-btn {
+  width: 100%; border: 1px solid var(--border); background: var(--panel2);
+  color: var(--muted); border-radius: 8px; padding: 6px;
+  font: 500 .6rem 'DM Mono', monospace; cursor: pointer;
+  transition: all .15s; margin-bottom: 8px; display: none;
+}
+.clear-bg-btn.visible { display: block; }
+.clear-bg-btn:hover { border-color: var(--red); color: var(--red); }
+
+/* Photo presets grid */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.photo-thumb {
+  aspect-ratio: 1;
+  border-radius: 7px;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid transparent;
+  transition: all .18s;
+  position: relative;
+  overflow: hidden;
+}
+.photo-thumb:hover { transform: scale(1.04); border-color: var(--gold); }
+.photo-thumb.active { border-color: var(--gold2); box-shadow: 0 0 0 2px var(--gold); }
+.photo-thumb .pt-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 4px 5px;
+  background: rgba(0,0,0,.55);
+  font: 600 .52rem 'DM Mono', monospace;
+  color: #fff; letter-spacing: .5px; text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.photo-thumb.loading { opacity: .6; }
+
+/* ── Canvas area ── */
+#canvas-area {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  position: relative; background: var(--bg); overflow: hidden;
+  transition: background .35s var(--ease);
+}
+#canvas-area::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(0,0,0,.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+[data-theme="dark"] #canvas-area::before {
+  background-image: radial-gradient(circle, rgba(255,255,255,.035) 1px, transparent 1px);
+}
+#canvas-wrap { position: relative; z-index: 1; }
+#format-tag {
+  position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
+  font: 600 .57rem 'DM Mono', monospace; letter-spacing: 1.6px; text-transform: uppercase;
+  color: var(--gold3); background: var(--panel); border: 1px solid var(--border);
+  padding: 4px 12px; border-radius: 20px; white-space: nowrap;
+  box-shadow: var(--shadow-card);
+}
+#drag-hint {
+  position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%);
+  font: .52rem 'DM Mono', monospace; color: var(--muted); white-space: nowrap;
+  letter-spacing: 1.2px; text-transform: uppercase;
+}
+canvas {
+  display: block; border-radius: 5px;
+  box-shadow: var(--shadow-elev);
+  cursor: crosshair;
+  transition: box-shadow .35s var(--ease);
+}
+#canvas-btns { position: absolute; bottom: 16px; right: 16px; display: flex; gap: 5px; }
+.cv-btn {
+  background: var(--panel); backdrop-filter: blur(8px);
+  border: 1px solid var(--border); color: var(--muted2); border-radius: 7px;
+  padding: 6px 11px; font: 500 .6rem 'DM Mono', monospace; cursor: pointer;
+  transition: border-color .15s var(--ease), color .15s var(--ease), transform .15s var(--ease);
+}
+.cv-btn:hover { border-color: var(--gold); color: var(--text); transform: translateY(-1px); }
+[data-theme="dark"] .cv-btn { background: rgba(27,24,18,.9); }
+
+@media (max-width: 860px) {
+  body { flex-direction: column; height: auto; overflow: auto; }
+  #sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+  #canvas-area { min-height: 80vw; padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<aside id="sidebar">
+
+  <div id="hdr">
+    <a href="../" class="back-link" id="back-link" aria-label="Back to home">← <span data-i18n="back_link">Back</span></a>
+    <div class="brand">
+      <div class="brand-mark">CBM</div>
+      <div>
+        <div class="brand-name">Center for Biblical Missions</div>
+        <div class="brand-sub" data-i18n="brand_sub">Graphic Generator</div>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <button class="icon-btn" id="theme-btn" title="Toggle theme">☀️</button>
+    </div>
+  </div>
+
+  <div id="tabs">
+    <div class="tab active" data-tab="content">✏️ Content</div>
+    <div class="tab" data-tab="design">🎨 Design</div>
+    <div class="tab" data-tab="atm">🌅 Atmosphere</div>
+    <div class="tab" data-tab="brand">🏷 Brand</div>
+  </div>
+
+  <div id="panels">
+
+    <!-- CONTENT PANEL -->
+    <div class="panel active" id="panel-content">
+
+      <div class="sec-title" id="lbl-verse-sec">Hlavní verš</div>
+
+      <div class="field">
+        <div class="field-label"><span id="lbl-main">Hlavní text</span></div>
+        <textarea id="inp-main" rows="4"></textarea>
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span id="lbl-sub">Podtitul</span></div>
+        <textarea id="inp-sub" rows="3"></textarea>
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <span id="lbl-msz">Velikost textu</span>
+          <span class="val" id="val-msz">1.2×</span>
+        </div>
+        <input type="range" id="sld-msz" min="0.4" max="3.5" step="0.05" value="1.2">
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span id="lbl-autofit">Auto-Fit Text</span></div>
+        <div class="opt-group" id="grp-autofit">
+          <button class="opt-btn active" data-val="on">✓ On</button>
+          <button class="opt-btn" data-val="off">Off</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <span id="lbl-subsz">Velikost podtitulu</span>
+          <span class="val" id="val-subsz">50%</span>
+        </div>
+        <input type="range" id="sld-subsz" min="0.2" max="1.0" step="0.05" value="0.5">
+      </div>
+
+      <div class="divider"></div>
+      <div class="sec-title" id="lbl-ref-sec">Odkaz a zdroj</div>
+
+      <div class="field">
+        <div class="field-label"><span id="lbl-ref">Odkaz na verš</span></div>
+        <input type="text" id="inp-ref">
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span id="lbl-src">Zdroj</span></div>
+        <input type="text" id="inp-src">
+      </div>
+
+      <div class="divider"></div>
+      <div class="sec-title" id="lbl-date-sec">Datum</div>
+
+      <div class="date-row field">
+        <input type="text" id="inp-date">
+        <button class="today-btn" id="lbl-today">📅 Dnes</button>
+      </div>
+
+      <div class="divider"></div>
+      <div class="sec-title" id="lbl-extra-sec">Další štítky</div>
+      <div id="xblocks-container"></div>
+      <button class="add-xblock-btn" id="lbl-add-xblock">+ Přidat štítek</button>
+
+    </div>
+
+    <!-- DESIGN PANEL -->
+    <div class="panel" id="panel-design">
+
+      <div class="sec-title" id="lbl-fmt-sec">Formát</div>
+      <!-- Instagram -->
+      <div class="sec-sub">📸 Instagram</div>
+      <div class="opt-group" id="grp-fmt">
+        <button class="opt-btn active" data-val="ig_square">Square 1:1</button>
+        <button class="opt-btn" data-val="ig_portrait">Portrait 4:5</button>
+        <button class="opt-btn" data-val="ig_story">Story / Reel</button>
+      </div>
+      <!-- Facebook -->
+      <div class="sec-sub">📘 Facebook</div>
+      <div class="opt-group" id="grp-fmt-fb">
+        <button class="opt-btn" data-val="fb_square">Square 1:1</button>
+        <button class="opt-btn" data-val="fb_landscape">Landscape</button>
+        <button class="opt-btn" data-val="fb_cover">Cover Photo</button>
+        <button class="opt-btn" data-val="fb_story">Story</button>
+      </div>
+
+      <div class="sec-title" id="lbl-align-sec">Zarovnání</div>
+      <div class="opt-group" id="grp-align">
+        <button class="opt-btn active" data-val="center" id="lbl-align-c">Střed</button>
+        <button class="opt-btn" data-val="left" id="lbl-align-l">Vlevo</button>
+        <button class="opt-btn" data-val="right" id="lbl-align-r">Vpravo</button>
+      </div>
+
+      <div class="sec-title" id="lbl-layout-sec">Opening Quote " "</div>
+      <div class="opt-group" id="grp-layout">
+        <button class="opt-btn active" data-val="on">✓ On</button>
+        <button class="opt-btn" data-val="off">Off</button>
+      </div>
+
+      <div class="sec-title" id="lbl-font-sec">Písmo</div>
+      <div class="opt-group" id="grp-font">
+        <button class="opt-btn active" data-val="inter">Inter</button>
+        <button class="opt-btn" data-val="playfair">Playfair</button>
+        <button class="opt-btn" data-val="instrument">Instrument</button>
+      </div>
+
+
+
+      <div class="sec-title" id="lbl-accent-sec">Accent Color</div>
+      <div class="swatch-row" id="grp-accent">
+        <div class="swatch active" data-color="#114D5D" style="background:#114D5D"></div>
+        <div class="swatch" data-color="#1A6E84" style="background:#1A6E84"></div>
+        <div class="swatch" data-color="#0B2F39" style="background:#0B2F39"></div>
+        <div class="swatch" data-color="#EE6D49" style="background:#EE6D49"></div>
+        <div class="swatch" data-color="#4A6B8C" style="background:#4A6B8C"></div>
+        <div class="swatch" data-color="#1F2937" style="background:#1F2937"></div>
+        <div class="swatch" data-color="#FFFFFF" style="background:#FFFFFF;border:1px solid var(--border)"></div>
+        <input type="color" id="accent-picker" value="#114D5D" title="Custom color">
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span id="lbl-grad">Gradientní text</span></div>
+        <div class="opt-group" id="grp-grad">
+          <button class="opt-btn" data-val="on" id="lbl-grad-on">✓ On</button>
+          <button class="opt-btn active" data-val="off" id="lbl-grad-off">Off</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span id="lbl-txtcol">Text Color</span></div>
+        <div class="swatch-row" id="grp-txtcol">
+          <div class="swatch active" data-color="#ffffff" style="background:#ffffff;border-color:#ccc"></div>
+          <div class="swatch" data-color="#f5e6c8" style="background:#f5e6c8"></div>
+          <div class="swatch" data-color="#ffd700" style="background:#ffd700"></div>
+          <div class="swatch" data-color="#a0d8ef" style="background:#a0d8ef"></div>
+          <div class="swatch" data-color="#c8f5c8" style="background:#c8f5c8"></div>
+          <div class="swatch" data-color="#1a1a1a" style="background:#1a1a1a"></div>
+          <input type="color" id="txtcol-picker" value="#ffffff" title="Custom text color">
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <div class="field-label">
+          <span id="lbl-scale">Celkové měřítko</span>
+          <span class="val" id="val-scale">1.0×</span>
+        </div>
+        <input type="range" id="sld-scale" min="0.5" max="2.0" step="0.05" value="1.0">
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <span id="lbl-lh">Řádkování</span>
+          <span class="val" id="val-lh">1.5</span>
+        </div>
+        <input type="range" id="sld-lh" min="1.2" max="2.5" step="0.05" value="1.5">
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <span id="lbl-pad">Okraj</span>
+          <span class="val" id="val-pad">180</span>
+        </div>
+        <input type="range" id="sld-pad" min="60" max="400" step="10" value="180">
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <span id="lbl-vpos">Vertikální pozice</span>
+          <span class="val" id="val-vpos">28%</span>
+        </div>
+        <input type="range" id="sld-vpos" min="5" max="75" step="1" value="28">
+      </div>
+
+      <div class="divider"></div>
+      <div class="sec-title" id="lbl-deco-sec">Dekorace</div>
+      <div class="opt-group" id="grp-deco">
+        <button class="opt-btn active" data-val="line">Line</button>
+        <button class="opt-btn" data-val="cross">✝ Cross</button>
+        <button class="opt-btn" data-val="dots">Dots</button>
+        <button class="opt-btn" data-val="none">None</button>
+      </div>
+
+      <div class="sec-title" id="lbl-pat-sec">Vzor</div>
+      <div class="opt-group" id="grp-pat">
+        <button class="opt-btn active" data-val="none">None</button>
+        <button class="opt-btn" data-val="grid">Grid</button>
+        <button class="opt-btn" data-val="dots">Dots</button>
+        <button class="opt-btn" data-val="waves">Waves</button>
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <span id="lbl-patop">Průhlednost vzoru</span>
+          <span class="val" id="val-patop">12%</span>
+        </div>
+        <input type="range" id="sld-patop" min="2" max="55" step="1" value="12">
+      </div>
+
+    </div>
+
+    <!-- ATMOSPHERE PANEL -->
+    <div class="panel" id="panel-atm">
+
+      <div class="sec-title" id="lbl-bg-sec">Pozadí</div>
+
+      <div class="upload-zone" id="bg-upload-zone">
+        <input type="file" id="bg-file-input" accept="image/*" style="display:none">
+        <div class="uz-icon">🖼️</div>
+        <div class="uz-title" id="bg-upload-title">Nahrát fotku</div>
+        <div class="uz-sub" id="bg-upload-sub">JPG · PNG · WEBP · klikněte nebo přetáhněte</div>
+      </div>
+
+
+      <button class="clear-bg-btn" id="btn-clear-bg">✕ Clear Photo</button>
+      <div class="sec-title" id="lbl-photo-sec">Předvolby fotek</div>
+      <div class="photo-grid" id="photo-grid"></div>
+      <div class="divider"></div>
+      <div class="sec-title" id="lbl-preset-sec">Předvolby gradientu</div>
+      <div class="opt-group" id="grp-preset">
+        <button class="opt-btn active" data-val="night">Night</button>
+        <button class="opt-btn" data-val="dawn">Dawn</button>
+        <button class="opt-btn" data-val="deep">Deep Blue</button>
+        <button class="opt-btn" data-val="earth">Earth</button>
+        <button class="opt-btn" data-val="forest">Forest</button>
+        <button class="opt-btn" data-val="gold">Gold</button>
+      </div>
+
+      <div class="divider"></div>
+      <div class="sec-title" id="lbl-efx-sec">Překryv a efekty</div>
+
+      <div class="field">
+        <div class="field-label">
+          <span id="lbl-dim">Ztmavení</span>
+          <span class="val" id="val-dim">75%</span>
+        </div>
+        <input type="range" id="sld-dim" min="0" max="100" step="1" value="75">
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <span id="lbl-vig">Vinětace</span>
+          <span class="val" id="val-vig">60%</span>
+        </div>
+        <input type="range" id="sld-vig" min="0" max="100" step="1" value="60">
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <span id="lbl-blur">Rozostření</span>
+          <span class="val" id="val-blur">0px</span>
+        </div>
+        <input type="range" id="sld-blur" min="0" max="40" step="1" value="0">
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <span id="lbl-shad">Stín textu</span>
+          <span class="val" id="val-shad">50%</span>
+        </div>
+        <input type="range" id="sld-shad" min="0" max="100" step="1" value="50">
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span id="lbl-ovc">Barva překryvu</span></div>
+        <div class="swatch-row" id="grp-ovc">
+          <div class="swatch active" data-color="#080d18" style="background:#080d18"></div>
+          <div class="swatch" data-color="#1a0900" style="background:#1a0900"></div>
+          <div class="swatch" data-color="#091a09" style="background:#091a09"></div>
+          <div class="swatch" data-color="#09091a" style="background:#09091a"></div>
+          <div class="swatch" data-color="#1a1000" style="background:#1a1000"></div>
+          <input type="color" id="ov-picker" value="#080d18" title="Custom overlay">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BRAND PANEL -->
+    <div class="panel" id="panel-brand">
+
+      <div class="sec-title" id="lbl-logo-sec">Logo</div>
+      <div class="logo-zone" id="logo-upload-zone">
+        <input type="file" id="logo-file-input" accept="image/*" style="display:none">
+        <span id="lbl-logo-zone">+ Nahrát logo (PNG)</span>
+      </div>
+
+      <button class="clear-bg-btn" id="btn-clear-logo">✕ Clear Logo</button>
+
+      <div class="field">
+        <div class="field-label">
+          <span id="lbl-lgsz">Velikost loga</span>
+          <span class="val" id="val-lgsz">1.0×</span>
+        </div>
+        <input type="range" id="sld-lgsz" min="0.2" max="3" step="0.05" value="1.0">
+      </div>
+
+      <div class="sec-title" id="lbl-lgpos-sec">Pozice loga</div>
+      <div class="opt-group" id="grp-lgpos">
+        <button class="opt-btn active" data-val="top-center">Top Center</button>
+        <button class="opt-btn" data-val="top-left">Top Left</button>
+        <button class="opt-btn" data-val="bot-center">Bottom Center</button>
+        <button class="opt-btn" data-val="bot-right">Bottom Right</button>
+      </div>
+
+      <div class="divider"></div>
+      <div class="sec-title" id="lbl-wm-sec">Vodoznak</div>
+
+      <div class="field">
+        <div class="field-label"><span id="lbl-wm">Handle / vodoznak</span></div>
+        <input type="text" id="inp-wm" placeholder="@cbm.tmai.org">
+      </div>
+
+      <div class="opt-group" id="grp-wmpos">
+        <button class="opt-btn active" data-val="bot-right">Bottom Right</button>
+        <button class="opt-btn" data-val="bot-left">Bottom Left</button>
+        <button class="opt-btn" data-val="bot-center">Bottom Center</button>
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <span id="lbl-wmsz">Velikost vodoznaku</span>
+          <span class="val" id="val-wmsz">1.0×</span>
+        </div>
+        <input type="range" id="sld-wmsz" min="0.5" max="4.0" step="0.1" value="1.0">
+      </div>
+
+    </div>
+  </div><!-- /panels -->
+
+  <div id="undo-bar">
+    <button class="undo-btn" id="btn-undo" disabled>↩ Undo</button>
+    <button class="undo-btn" id="btn-redo" disabled>↪ Redo</button>
+    <span id="hist-count"></span>
+    <span style="font:.48rem 'DM Mono',monospace;color:var(--muted);opacity:.6;margin-left:auto">Ctrl+Z / Ctrl+Y</span>
+  </div>
+
+  <div id="footer">
+    <button class="exp-btn primary" id="btn-png">↓ PNG</button>
+    <button class="exp-btn secondary" id="btn-jpg">JPG</button>
+    <button class="exp-btn secondary" id="btn-copy">Copy</button>
+    <div id="saved-pill"></div>
+  </div>
+
+</aside>
+
+<main id="canvas-area">
+  <div id="canvas-wrap">
+    <div id="format-tag">1080 × 1080 · Instagram Post</div>
+    <canvas id="cv"></canvas>
+    <div id="drag-hint">drag to move text</div>
+  </div>
+  <div id="canvas-btns">
+    <button class="cv-btn" id="cv-copy-btn">Copy Image</button>
+    <button class="cv-btn" id="cv-reset-btn">Reset</button>
+  </div>
+</main>
+
+<script>
+const LANG = {
+  en: {
+    tab_content:'✏️ Content', tab_design:'🎨 Design', tab_atm:'🌅 Atmosphere', tab_brand:'🏷 Brand',
+    'lbl-verse-sec':'Main Verse / Quote','lbl-main':'Main Text','lbl-sub':'Sub Text',
+    'lbl-msz':'Text Size','lbl-ref-sec':'Reference & Source','lbl-ref':'Verse Reference',
+    'lbl-src':'Source','lbl-date-sec':'Date Line','lbl-extra-sec':'Extra Labels',
+    'lbl-today':'📅 Today','lbl-add-xblock':'+ Add Label',
+    'lbl-fmt-sec':'Format','lbl-align-sec':'Alignment','lbl-layout-sec':'Opening Quote “”',
+    'lbl-font-sec':'Font','lbl-accent-sec':'Accent Color','lbl-grad':'Gradient Text',
+    'lbl-grad-on':'✓ On','lbl-grad-off':'Off',
+    'lbl-scale':'Overall Scale','lbl-lh':'Line Height','lbl-pad':'Margin',
+    'lbl-vpos':'Vertical Position','lbl-deco-sec':'Decoration','lbl-pat-sec':'Pattern Overlay',
+    'lbl-patop':'Pattern Opacity',
+    'lbl-bg-sec':'Background Image','bg-upload-title':'Upload Photo','bg-upload-sub':'JPG · PNG · WEBP · Click or drag','lbl-photo-sec':'Photo Presets',
+    'lbl-preset-sec':'Gradient Presets','lbl-efx-sec':'Overlay & Effects',
+    'lbl-dim':'Darkness','lbl-vig':'Vignette','lbl-blur':'Blur',
+    'lbl-shad':'Text Shadow','lbl-ovc':'Overlay Color',
+    'lbl-logo-sec':'Logo','lbl-logo-zone':'+ Upload Logo (PNG)','lbl-lgsz':'Logo Size',
+    'lbl-lgpos-sec':'Logo Position','lbl-wm-sec':'Watermark','lbl-wm':'Handle / Watermark',
+    'lbl-align-c':'Center','lbl-align-l':'Left','lbl-align-r':'Right',
+    'cv-copy-btn':'Copy Image','cv-reset-btn':'Reset','lbl-txtcol':'Text Color','lbl-wmsz':'Watermark Size','lbl-subsz':'Sub Size','lbl-autofit':'Auto-Fit Text',
+    ph_main:'Enter verse or pull-quote...', ph_sub:'Second line...', ph_ref:'Matthew 28:19',
+    ph_src:'Center for Biblical Missions', ph_date:'Date or hashtags...', ph_wm:'@cbm.tmai.org', ph_xb:'Event info, location...',
+    def_main:'Go therefore and make disciples of all nations.',
+    def_sub:'Baptizing them in the name of the Father and of the Son and of the Holy Spirit.',
+    def_ref:'Matthew 28:19', def_src:'Center for Biblical Missions', def_wm:'@cbm.tmai.org',
+    saved:'✓ Saved',
+    photoFail:'⚠ Photo unavailable, try another',
+    back_link:'Back',
+    brand_sub:'Graphic Generator',
+  }
+};
+
+// Static label IDs to translate
+const LABEL_IDS = [
+  'lbl-verse-sec','lbl-main','lbl-sub','lbl-msz','lbl-ref-sec','lbl-ref','lbl-src',
+  'lbl-date-sec','lbl-extra-sec','lbl-today','lbl-add-xblock',
+  'lbl-fmt-sec','lbl-align-sec','lbl-layout-sec','lbl-font-sec','lbl-accent-sec',
+  'lbl-grad','lbl-grad-on','lbl-grad-off','lbl-scale','lbl-lh','lbl-pad','lbl-vpos',
+  'lbl-deco-sec','lbl-pat-sec','lbl-patop',
+  'lbl-bg-sec','bg-upload-title','bg-upload-sub','lbl-photo-sec','lbl-preset-sec','lbl-efx-sec',
+  'lbl-dim','lbl-vig','lbl-blur','lbl-shad','lbl-ovc',
+  'lbl-logo-sec','lbl-logo-zone','lbl-lgsz','lbl-lgpos-sec','lbl-wm-sec','lbl-wm',
+  'lbl-align-c','lbl-align-l','lbl-align-r','cv-copy-btn','cv-reset-btn','lbl-txtcol','lbl-chw','lbl-subsz','lbl-wmsz','lbl-autofit'
+];
+
+function applyLang(lang) {
+  if (!LANG[lang]) lang = 'en';
+  const t = LANG[lang];
+  if (!t) return;
+  // Tabs
+  document.querySelectorAll('.tab').forEach(tab => {
+    const key = 'tab_' + tab.dataset.tab;
+    if (t[key]) tab.textContent = t[key];
+  });
+  // Static labels
+  LABEL_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && t[id] !== undefined) el.textContent = t[id];
+  });
+  // Generic data-i18n nodes (back link, brand sub, etc.)
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (t[k] !== undefined) el.textContent = t[k];
+  });
+  // Placeholders
+  document.getElementById('inp-main').placeholder = t.ph_main || '';
+  document.getElementById('inp-sub').placeholder  = t.ph_sub  || '';
+  document.getElementById('inp-ref').placeholder  = t.ph_ref  || '';
+  document.getElementById('inp-src').placeholder  = t.ph_src  || '';
+  document.getElementById('inp-date').placeholder = t.ph_date || '';
+  document.getElementById('inp-wm').placeholder   = t.ph_wm   || '';
+  // Reflect on lang buttons + html lang
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  document.documentElement.lang = lang;
+  // Persist using shared portal key so Home and Generator stay in sync
+  try { localStorage.setItem('cbm_lang_v1', lang); } catch (e) {}
+  // Re-render xblocks for updated placeholder
+  renderXBlocks();
+}
+
+// ─── State ──────────────────────────────────────────────────
+const STATE = {
+  lang: 'en',
+  fmt: 'ig_square',
+  align: 'center',
+  layout: 'on',
+  font: 'inter',
+  chathuraWeight: 700,
+  textColor: '#ffffff',
+  subScale: 0.5,
+  autoFit: true,
+  accent: '#114D5D',
+  gradText: false,
+  deco: 'line',
+  pattern: 'none',
+  bgPreset: 'night',
+  ovColor: '#080d18',
+  logoPos: 'top-center',
+  wmPos: 'bot-right',
+  wmScale: 1.0,
+  bgImg: null,
+  logoImg: null,
+  bgImgId: null,
+  logoImgId: null,
+  offX: 0, offY: 0,
+  xblocks: [],
+  _xid: 0,
+};
+
+// ─── Image Registry ─────────────────────────────────────────
+// Images are stored here keyed by ID so snapshots stay lightweight.
+// Snapshots store IDs; applySnapshot looks up the actual Image object.
+const IMG_REGISTRY = {};
+let _imgId = 0;
+
+function registerImg(imgEl) {
+  if (!imgEl) return null;
+  // If already registered, return existing ID
+  for (const [id, img] of Object.entries(IMG_REGISTRY)) {
+    if (img === imgEl) return id;
+  }
+  const id = 'img_' + (++_imgId);
+  IMG_REGISTRY[id] = imgEl;
+  return id;
+}
+
+function lookupImg(id) {
+  return id ? (IMG_REGISTRY[id] || null) : null;
+}
+
+// ─── Canvas ─────────────────────────────────────────────────
+const cv  = document.getElementById('cv');
+const ctx = cv.getContext('2d');
+let renderPending = false;
+
+const DIMS = {
+  ig_square:    [1080, 1080],   // Instagram Post (Square)
+  ig_portrait:  [1080, 1350],   // Instagram Post (Portrait)
+  ig_story:     [1080, 1920],   // Instagram Story / Reel
+  fb_square:    [1200, 1200],   // Facebook Post (Square)
+  fb_landscape: [1200,  630],   // Facebook Post (Landscape)
+  fb_cover:     [820,   312],   // Facebook Cover Photo
+  fb_story:     [1080, 1920],   // Facebook Story
+};
+const FMT_LABELS = {
+  ig_square:    '1080 × 1080 · Instagram Post',
+  ig_portrait:  '1080 × 1350 · Instagram Portrait',
+  ig_story:     '1080 × 1920 · Instagram Story / Reel',
+  fb_square:    '1200 × 1200 · Facebook Post',
+  fb_landscape: '1200 × 630 · Facebook Landscape',
+  fb_cover:     '820 × 312 · Facebook Cover',
+  fb_story:     '1080 × 1920 · Facebook Story',
+};
+const FONTS = {
+  inter:      '"Inter", system-ui, -apple-system, sans-serif',
+  playfair:   '"Playfair Display", Georgia, serif',
+  instrument: '"Instrument Serif", Georgia, serif',
+};
+// Chathura weight → font-weight value map
+const CHATHURA_WEIGHTS = { thin:100, light:300, regular:400, bold:700, extrabold:800 };
+const BG_PRESETS = {
+  night:  {stops:[['#0b0f1a',0],['#111827',.5],['#0b0f1a',1]], dir:160},
+  dawn:   {stops:[['#1a0a00',0],['#2d1a0e',.4],['#4a2800',.7],['#1a0a00',1]], dir:140},
+  deep:   {stops:[['#050d1f',0],['#0a1a3a',.5],['#06111f',1]], dir:135},
+  earth:  {stops:[['#1a1200',0],['#2e2000',.45],['#180f00',1]], dir:150},
+  forest: {stops:[['#040e07',0],['#0d2010',.5],['#020902',1]], dir:130},
+  gold:   {stops:[['#1a1000',0],['#3a2500',.4],['#2a1800',.7],['#100a00',1]], dir:145},
+};
+
+function resizeCanvas() {
+  const dims = DIMS[STATE.fmt] || DIMS.ig_square; // fallback to IG square if fmt unknown
+  const [w, h] = dims;
+  cv.width = w; cv.height = h;
+  const maxW = (window.innerWidth - 440) * 0.88;
+  const maxH = window.innerHeight * 0.82;
+  const ratio = Math.min(maxW/w, maxH/h, 1);
+  cv.style.width  = Math.round(w * ratio) + 'px';
+  cv.style.height = Math.round(h * ratio) + 'px';
+  document.getElementById('format-tag').textContent = FMT_LABELS[STATE.fmt];
+}
+
+function schedRender() {
+  if (renderPending) return;
+  renderPending = true;
+  requestAnimationFrame(() => { renderPending = false; renderCanvas(); });
+}
+
+function getSlider(id) { return parseFloat(document.getElementById(id).value); }
+function getInput(id)  { return (document.getElementById(id).value || '').trim(); }
+
+// Convert hex color to r,g,b string for rgba() usage
+function hexToRgb(hex) {
+  const h = hex.replace('#','');
+  const r = parseInt(h.slice(0,2),16);
+  const g = parseInt(h.slice(2,4),16);
+  const b = parseInt(h.slice(4,6),16);
+  return `${r},${g},${b}`;
+}
+
+function renderCanvas() {
+  const w = cv.width, h = cv.height;
+  const dim   = getSlider('sld-dim')   / 100;
+  const vig   = getSlider('sld-vig')   / 100;
+  const blur  = getSlider('sld-blur');
+  const shad  = getSlider('sld-shad')  / 100;
+  const scale = getSlider('sld-scale');
+  const lh    = getSlider('sld-lh');
+  const pad   = getSlider('sld-pad');
+  const vpos  = getSlider('sld-vpos')  / 100;
+  const patop = getSlider('sld-patop') / 100;
+  const lgsz  = getSlider('sld-lgsz');
+  const msz   = getSlider('sld-msz');
+
+  ctx.clearRect(0, 0, w, h);
+
+  // 1. Background
+  if (STATE.bgImg) {
+    ctx.save();
+    if (blur > 0) ctx.filter = `blur(${blur}px)`;
+    const r = Math.max(w / STATE.bgImg.width, h / STATE.bgImg.height);
+    const iw = STATE.bgImg.width * r, ih = STATE.bgImg.height * r;
+    ctx.drawImage(STATE.bgImg, (w-iw)/2, (h-ih)/2, iw, ih);
+    ctx.filter = 'none';
+    ctx.restore();
+  } else {
+    const preset = BG_PRESETS[STATE.bgPreset] || BG_PRESETS.night;
+    const ang = preset.dir * Math.PI / 180;
+    const gl = Math.sqrt(w*w + h*h);
+    const grd = ctx.createLinearGradient(
+      w/2 - Math.cos(ang)*gl/2, h/2 + Math.sin(ang)*gl/2,
+      w/2 + Math.cos(ang)*gl/2, h/2 - Math.sin(ang)*gl/2
+    );
+    preset.stops.forEach(([color, stop]) => grd.addColorStop(stop, color));
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, w, h);
+    // Subtle static stars, positions seeded once per canvas size so they
+    // don't flicker while the user types or adjusts sliders.
+    ctx.save(); ctx.globalAlpha = 0.06;
+    const starSeed = w * 31337 + h;
+    let sr = starSeed;
+    const rand = () => { sr = (sr * 1664525 + 1013904223) & 0xffffffff; return (sr >>> 0) / 0xffffffff; };
+    for (let i = 0; i < 300; i++) {
+      ctx.fillStyle = rand() > 0.5 ? STATE.accent : '#ffffff';
+      ctx.fillRect(rand()*w, rand()*h, 1.5, 1.5);
+    }
+    ctx.restore();
+  }
+
+  // 2. Pattern overlay (cached, only rebuilds when w/h/type/color changes)
+  if (STATE.pattern !== 'none') {
+    const pat = getCachedPattern(w, h, STATE.pattern, STATE.accent);
+    ctx.save(); ctx.globalAlpha = patop; ctx.drawImage(pat, 0, 0); ctx.restore();
+  }
+
+  // 3. Dark overlay
+  ctx.fillStyle = `rgba(${hexToRgb(STATE.ovColor)},${dim})`;
+  ctx.fillRect(0, 0, w, h);
+
+  // 4. Vignette
+  if (vig > 0) {
+    const vg = ctx.createRadialGradient(w/2, h/2, w*0.1, w/2, h/2, w*0.88);
+    vg.addColorStop(0, 'rgba(0,0,0,0)');
+    vg.addColorStop(1, `rgba(0,0,0,${vig * 0.9})`);
+    ctx.fillStyle = vg;
+    ctx.fillRect(0, 0, w, h);
+  }
+
+  // 5. Text
+  // ff = the Telugu-capable font stack chosen by user.
+  // For UI-chrome elements (ref, date, wm) we always include the Telugu font
+  // as a fallback so mixed-script text (e.g. "ఎఫెసీయులకు 2:8") renders correctly.
+  const ff = FONTS[STATE.font] || FONTS.notoSans;
+
+  const maxW = w - pad * 2;
+  const mainText = getInput('inp-main');
+  const subText  = getInput('inp-sub');
+  const refText  = getInput('inp-ref');
+  const srcText  = getInput('inp-src');
+  const dateText = getInput('inp-date');
+  const wmText   = getInput('inp-wm');
+
+  // Auto-scale for extreme aspect ratios (e.g. fb_cover 820×312).
+  // Without this, text overflows or the layout looks completely wrong.
+  const fmtScaleMod = STATE.fmt === 'fb_cover' ? 0.38 : 1.0;
+  const baseSize = 80 * scale * msz * fmtScaleMod;
+
+  const mainWeight = 700;
+
+  // Auto-fit: shrink baseSize until main text fits within 3 lines
+  let fittedSize = baseSize;
+  if (STATE.autoFit && mainText) {
+    ctx.font = `${mainWeight} ${fittedSize}px ${ff}`;
+    let testLines = wrapText(ctx, mainText, maxW);
+    let attempts = 0;
+    while (testLines.length > 3 && fittedSize > 20 && attempts < 40) {
+      fittedSize *= 0.95;
+      ctx.font = `${mainWeight} ${fittedSize}px ${ff}`;
+      testLines = wrapText(ctx, mainText, maxW);
+      attempts++;
+    }
+  }
+  const activeFontSize = STATE.autoFit ? fittedSize : baseSize;
+
+  const alignX = STATE.align === 'center' ? w/2 + STATE.offX
+               : STATE.align === 'left'   ? pad + STATE.offX
+               :                            w - pad + STATE.offX;
+
+  // For fb_cover, default vpos pushes text too low, clamp to max 25% of height
+  const effectiveVpos = STATE.fmt === 'fb_cover' ? Math.min(vpos, 0.25) : vpos;
+  let y = h * effectiveVpos + STATE.offY;
+
+  // Reset all text state to a clean known baseline
+  ctx.textAlign    = STATE.align;
+  ctx.textBaseline = 'top';
+  ctx.shadowColor  = 'transparent';
+  ctx.shadowBlur   = 0;
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 0;
+
+  // Helper, always fully clears shadow, including offsetX
+  const setShadow = (on) => {
+    if (on && shad > 0) {
+      ctx.shadowColor   = `rgba(0,0,0,${shad * 0.85})`;
+      ctx.shadowBlur    = 24 * shad;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 3 * shad;
+    } else {
+      ctx.shadowColor   = 'transparent';
+      ctx.shadowBlur    = 0;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+    }
+  };
+
+  // Opening decorative quote mark (classic/bold layout only)
+  // Uses its own save/restore so it cannot pollute any subsequent state
+  if (STATE.layout === 'on' || STATE.layout === 'classic') {
+    ctx.save();
+    ctx.textAlign    = STATE.align;
+    ctx.textBaseline = 'top';
+    ctx.shadowColor  = 'transparent';
+    ctx.shadowBlur   = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.font      = `700 ${baseSize * 3.5}px Georgia,serif`;
+    ctx.fillStyle = STATE.accent + '22';
+    const qx = STATE.align === 'center' ? alignX - maxW/2 - 20 : alignX - 30;
+    ctx.fillText('\u201C', qx, y - baseSize * 1.1);
+    ctx.restore();
+    // Explicitly re-assert state after restore, in case browser differs
+    ctx.textAlign    = STATE.align;
+    ctx.textBaseline = 'top';
+  }
+
+  // ── Main text ──
+  ctx.font = `${mainWeight} ${activeFontSize}px ${ff}`;
+  const mainLines = wrapText(ctx, mainText, maxW);
+  setShadow(true);
+  if (STATE.gradText && mainLines.length > 0) {
+    const grd = ctx.createLinearGradient(0, y, 0, y + activeFontSize * lh * mainLines.length);
+    grd.addColorStop(0, STATE.textColor);
+    grd.addColorStop(1, STATE.accent);
+    ctx.fillStyle = grd;
+  } else {
+    ctx.fillStyle = STATE.textColor;
+  }
+  mainLines.forEach(line => { ctx.fillText(line, alignX, y); y += activeFontSize * lh; });
+  setShadow(false);
+
+  // ── Sub text ──
+  if (subText) {
+    y += 18 * scale;
+    const subSize = baseSize * STATE.subScale;
+    ctx.font = `400 ${subSize}px ${ff}`;
+    const subLines = wrapText(ctx, subText, maxW);
+    // Sub/source/date all derive from STATE.textColor for visual consistency
+    const subRgb = hexToRgb(STATE.textColor);
+    ctx.fillStyle = `rgba(${subRgb},0.82)`;
+    setShadow(true);
+    subLines.forEach(line => { ctx.fillText(line, alignX, y); y += subSize * lh; });
+    setShadow(false);
+  }
+
+  // ── Decoration ──
+  y += 28 * scale;
+  drawDecoration(y, w, pad, scale);
+  y += 52 * scale;
+
+  // ── Verse reference ──
+  // Use ff (Telugu font) as primary so Telugu script in refs renders perfectly,
+  // with DM Mono as secondary for Latin/numeric characters
+  if (refText) {
+    const refSize = 32 * scale;
+    ctx.font = `700 ${refSize}px ${ff}`;
+    ctx.fillStyle = STATE.accent;
+    setShadow(true);
+    const refPrefix = STATE.deco === 'cross' ? '\u271D ' : '';
+    const refLines = wrapText(ctx, refPrefix + refText, maxW);
+    refLines.forEach(line => { ctx.fillText(line, alignX, y); y += refSize * lh; });
+    setShadow(false);
+    y += 12 * scale;
+  }
+
+  // ── Source / church name ──
+  if (srcText) {
+    const srcSize = 25 * scale;
+    ctx.font = `400 ${srcSize}px ${ff}`;
+    ctx.fillStyle = `rgba(${hexToRgb(STATE.textColor)},0.55)`;
+    const srcLines = wrapText(ctx, srcText, maxW);
+    srcLines.forEach(line => { ctx.fillText(line, alignX, y); y += srcSize * lh; });
+    y += 10 * scale;
+  }
+
+  // ── Date line ──
+  // Use ff so Telugu date strings (from auto-date) render with correct glyphs
+  if (dateText) {
+    const dateSize = 21 * scale;
+    ctx.font = `400 ${dateSize}px ${ff}`;
+    ctx.fillStyle = `rgba(${hexToRgb(STATE.textColor)},0.38)`;
+    const dateLines = wrapText(ctx, dateText, maxW);
+    dateLines.forEach(line => { ctx.fillText(line, alignX, y); y += dateSize * lh; });
+    y += 8 * scale;
+  }
+
+  // ── Extra label blocks ──
+  STATE.xblocks.forEach(block => {
+    if (!block.text) return;
+    const xbSize = 23 * scale;
+    ctx.font = `500 ${xbSize}px ${ff}`;
+    ctx.fillStyle = `rgba(${hexToRgb(STATE.textColor)},0.72)`;
+    const xbLines = wrapText(ctx, block.text, maxW);
+    xbLines.forEach(line => { ctx.fillText(line, alignX, y); y += xbSize * lh; });
+    y += 8 * scale;
+  });
+
+  // ── Logo (drawn after all text so it layers on top cleanly) ──
+  if (STATE.logoImg) {
+    const maxLW = 180 * lgsz, maxLH = 80 * lgsz;
+    const lr = Math.min(maxLW / STATE.logoImg.width, maxLH / STATE.logoImg.height);
+    const lw = STATE.logoImg.width * lr, lh2 = STATE.logoImg.height * lr;
+    const mg = pad * 0.5;
+    let lx, ly;
+    if      (STATE.logoPos === 'top-center') { lx = (w-lw)/2;    ly = mg; }
+    else if (STATE.logoPos === 'top-left')   { lx = mg;           ly = mg; }
+    else if (STATE.logoPos === 'bot-center') { lx = (w-lw)/2;    ly = h - mg - lh2; }
+    else                                     { lx = w - mg - lw; ly = h - mg - lh2; }
+    // Clear shadow before drawing image, shadow on images looks bad
+    ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0; ctx.shadowOffsetY = 0;
+    ctx.drawImage(STATE.logoImg, lx, ly, lw, lh2);
+  }
+
+  // ── Watermark ──
+  // Always the last thing drawn. Uses ff for Telugu support.
+  if (wmText) {
+    const wmSize = 20 * scale * STATE.wmScale;
+    ctx.font      = `400 ${wmSize}px ${ff}`;
+    ctx.fillStyle = `rgba(${hexToRgb(STATE.textColor)},0.28)`;
+    ctx.shadowColor  = 'transparent';
+    ctx.shadowBlur   = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    const wmX = STATE.wmPos === 'bot-right' ? w - pad/2
+              : STATE.wmPos === 'bot-left'  ? pad/2
+              : w/2;
+    ctx.textAlign    = STATE.wmPos === 'bot-right' ? 'right'
+                     : STATE.wmPos === 'bot-left'  ? 'left'
+                     : 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText(wmText, wmX, h - pad/2);
+    // Restore text state
+    ctx.textAlign    = STATE.align;
+    ctx.textBaseline = 'top';
+  }
+}
+
+function drawDecoration(y, w, pad, scale) {
+  const dw = 110 * scale;
+  const dx = STATE.align === 'center' ? (w - dw)/2
+           : STATE.align === 'left'   ? pad
+           :                            w - pad - dw;
+  ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetX = 0; ctx.shadowOffsetY = 0;
+  if (STATE.deco === 'line') {
+    ctx.fillStyle = STATE.accent;
+    ctx.fillRect(dx, y, dw, 4 * scale);
+  } else if (STATE.deco === 'dots') {
+    const r = 4.5*scale, sp = 20*scale, n = 5;
+    const startX = dx + dw/2 - (n-1)*sp/2;
+    ctx.fillStyle = STATE.accent;
+    for (let i = 0; i < n; i++) {
+      ctx.beginPath(); ctx.arc(startX + i*sp, y + r, r, 0, Math.PI*2); ctx.fill();
+    }
+  } else if (STATE.deco === 'cross') {
+    const cx2 = dx + dw/2, cH = 34*scale, cW = 20*scale, ct = 4.5*scale;
+    ctx.fillStyle = STATE.accent;
+    ctx.fillRect(cx2 - ct/2, y, ct, cH);
+    ctx.fillRect(cx2 - cW/2, y + cH*0.28, cW, ct);
+  }
+}
+
+// Pattern canvas cache, keyed by "w_h_type_color"
+const _patCache = {};
+function getCachedPattern(w, h, type, color) {
+  const key = `${w}_${h}_${type}_${color}`;
+  if (_patCache[key]) return _patCache[key];
+  const pat = buildPatternCanvas(w, h, type, color);
+  _patCache[key] = pat;
+  // Evict old entries if cache grows too large (keep newest 6)
+  const keys = Object.keys(_patCache);
+  if (keys.length > 6) delete _patCache[keys[0]];
+  return pat;
+}
+
+function buildPatternCanvas(w, h, type, color) {
+  const off = document.createElement('canvas');
+  off.width = w; off.height = h;
+  const c = off.getContext('2d');
+  c.strokeStyle = color; c.fillStyle = color;
+  if (type === 'grid') {
+    c.lineWidth = 1.5;
+    for (let x = 0; x < w; x += 100) { c.beginPath(); c.moveTo(x,0); c.lineTo(x,h); c.stroke(); }
+    for (let y = 0; y < h; y += 100) { c.beginPath(); c.moveTo(0,y); c.lineTo(w,y); c.stroke(); }
+  } else if (type === 'dots') {
+    for (let x = 40; x < w; x += 80)
+      for (let y = 40; y < h; y += 80) { c.beginPath(); c.arc(x,y,4,0,Math.PI*2); c.fill(); }
+  } else if (type === 'waves') {
+    c.lineWidth = 2;
+    for (let row = -1; row < h/40 + 1; row++) {
+      c.beginPath();
+      for (let x = 0; x < w; x += 4) {
+        const y = row*40 + Math.sin((x/120)*Math.PI*2) * 16;
+        x === 0 ? c.moveTo(x, y) : c.lineTo(x, y);
+      }
+      c.stroke();
+    }
+  }
+  return off;
+}
+
+function wrapText(ctx, text, maxW) {
+  if (!text) return [];
+  const words = text.split(/\s+/).filter(Boolean);
+  if (!words.length) return [];
+  const lines = []; let line = words[0];
+  for (let i = 1; i < words.length; i++) {
+    const test = line + ' ' + words[i];
+    if (ctx.measureText(test).width <= maxW) line = test;
+    else { lines.push(line); line = words[i]; }
+  }
+  lines.push(line);
+  // Character-level fallback: split any line that's still too wide
+  // (handles long Telugu words or URLs with no spaces)
+  const result = [];
+  for (const ln of lines) {
+    if (ctx.measureText(ln).width <= maxW) { result.push(ln); continue; }
+    let seg = '';
+    for (const ch of ln) {
+      if (ctx.measureText(seg + ch).width > maxW && seg) { result.push(seg); seg = ch; }
+      else seg += ch;
+    }
+    if (seg) result.push(seg);
+  }
+  return result;
+}
+
+
+// ─── Photo presets (Unsplash) ──────────────────────────────
+const PHOTO_PRESETS = [
+  // Nature
+  { id:'ph-mountains',  label:'Mountains',   url:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1500&q=80&fit=crop' },
+  { id:'ph-sunset',     label:'Sunset',      url:'https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?w=1500&q=80&fit=crop' },
+  { id:'ph-forest',     label:'Forest',      url:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=1500&q=80&fit=crop' },
+  { id:'ph-ocean',      label:'Ocean',       url:'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=1500&q=80&fit=crop' },
+  { id:'ph-stars',      label:'Starry Sky',  url:'https://images.unsplash.com/photo-1475274047050-1d0c0975c63e?w=1500&q=80&fit=crop' },
+  { id:'ph-field',      label:'Wheat Field', url:'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1500&q=80&fit=crop' },
+  { id:'ph-waterfall',  label:'Waterfall',   url:'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=1500&q=80&fit=crop' },
+  { id:'ph-clouds',     label:'Clouds',      url:'https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?w=1500&q=80&fit=crop' },
+  { id:'ph-desert',     label:'Desert',      url:'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1500&q=80&fit=crop' },
+  // Cities
+  { id:'ph-city-night', label:'City Night',  url:'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1500&q=80&fit=crop' },
+  { id:'ph-skyline',    label:'Skyline',     url:'https://images.unsplash.com/photo-1514565131-fce0801e6785?w=1500&q=80&fit=crop' },
+  { id:'ph-street',     label:'Street',      url:'https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1500&q=80&fit=crop' },
+  // Church / spiritual
+  { id:'ph-cross',      label:'Cross',       url:'https://images.unsplash.com/photo-1438032005730-c779502df39b?w=1500&q=80&fit=crop' },
+  { id:'ph-chapel',     label:'Chapel',      url:'https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=1500&q=80&fit=crop' },
+  { id:'ph-light',      label:'Light Ray',   url:'https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=1500&q=80&fit=crop' },
+];
+
+function buildPhotoGrid() {
+  const grid = document.getElementById('photo-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  PHOTO_PRESETS.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'photo-thumb loading';
+    div.dataset.pid = p.id;
+    // Use smaller thumbnail for the grid preview
+    const thumbUrl = p.url.replace('w=1500', 'w=200');
+    div.style.backgroundImage = `url('${thumbUrl}')`;
+    div.innerHTML = `<div class="pt-label">${p.label}</div>`;
+    div.addEventListener('click', () => selectPhotoPreset(p));
+    grid.appendChild(div);
+    // Load thumb image to remove loading state
+    const img = new Image();
+    img.onload = () => div.classList.remove('loading');
+    img.onerror = () => div.style.display = 'none';
+    img.src = thumbUrl;
+  });
+}
+
+// Token to cancel stale preset requests, incremented on each new selection
+let _presetToken = 0;
+
+function selectPhotoPreset(preset) {
+  // Mark active in grid
+  document.querySelectorAll('.photo-thumb').forEach(t => t.classList.remove('active'));
+  const thumb = document.querySelector(`.photo-thumb[data-pid="${preset.id}"]`);
+  if (thumb) thumb.classList.add('active');
+
+  // Clear gradient preset active state
+  document.querySelectorAll('#grp-preset .opt-btn').forEach(b => b.classList.remove('active'));
+
+  STATE.bgPreset = null;
+
+  // Increment token, any in-flight request with an older token is stale
+  const myToken = ++_presetToken;
+
+  // Fetch as blob → convert to object URL so canvas is never tainted by
+  // cross-origin restrictions, keeping toDataURL/toBlob export working.
+  fetch(preset.url)
+    .then(r => {
+      if (!r.ok) throw new Error('fetch failed');
+      return r.blob();
+    })
+    .then(blob => {
+      // Discard if user already picked a different preset
+      if (myToken !== _presetToken) { return; }
+      const objectUrl = URL.createObjectURL(blob);
+      const img = new Image();
+      img.onload = () => {
+        URL.revokeObjectURL(objectUrl); // free memory after load
+        if (myToken !== _presetToken) { return; } // stale check after async load
+        STATE.bgImg = img;
+        STATE.bgImgId = registerImg(img);
+        STATE.currentPhotoId = preset.id;
+        document.getElementById('bg-upload-zone').classList.add('has-file');
+        document.getElementById('bg-upload-title').textContent = preset.label;
+        document.getElementById('btn-clear-bg').classList.add('visible');
+        pushHistory();
+        schedRender();
+      };
+      img.onerror = () => URL.revokeObjectURL(objectUrl);
+      img.src = objectUrl;
+    })
+    .catch(err => {
+      if (myToken !== _presetToken) { return; } // stale, ignore
+      console.warn('Photo preset failed to load:', preset.url, err);
+      // Show user-facing message in current language
+      const title = document.getElementById('bg-upload-title');
+      const failMsg = (LANG[STATE.lang] || LANG.cs).photoFail || '⚠ Photo unavailable';
+      if (title) title.textContent = failMsg;
+      // Revert thumb active state
+      document.querySelectorAll('.photo-thumb').forEach(t => t.classList.remove('active'));
+    });
+}
+
+// ─── Undo / Redo ────────────────────────────────────────────
+let history = [], histIdx = -1, histPaused = false;
+
+function makeSnapshot() {
+  return {
+    main:  getInput('inp-main'),
+    sub:   getInput('inp-sub'),
+    ref:   getInput('inp-ref'),
+    src:   getInput('inp-src'),
+    date:  getInput('inp-date'),
+    wm:    getInput('inp-wm'),
+    msz:   document.getElementById('sld-msz').value,
+    scale: document.getElementById('sld-scale').value,
+    lh:    document.getElementById('sld-lh').value,
+    pad:   document.getElementById('sld-pad').value,
+    vpos:  document.getElementById('sld-vpos').value,
+    dim:   document.getElementById('sld-dim').value,
+    vig:   document.getElementById('sld-vig').value,
+    blur:  document.getElementById('sld-blur').value,
+    shad:  document.getElementById('sld-shad').value,
+    patop: document.getElementById('sld-patop').value,
+    lgsz:  document.getElementById('sld-lgsz').value,
+    accent:   STATE.accent,
+    ovColor:  STATE.ovColor,
+    fmt:      STATE.fmt,
+    align:    STATE.align,
+    layout:   STATE.layout,
+    font:     STATE.font,
+    chathuraWeight: STATE.chathuraWeight,
+    textColor: STATE.textColor,
+    subScale: STATE.subScale,
+    autoFit:  STATE.autoFit,
+    gradText: STATE.gradText,
+    deco:     STATE.deco,
+    pattern:  STATE.pattern,
+    bgPreset:      STATE.bgPreset,
+    bgImgId:       STATE.bgImgId,
+    bgUploadLabel: document.getElementById('bg-upload-title') ? document.getElementById('bg-upload-title').textContent : '',
+    logoImgId:    STATE.logoImgId,
+    currentPhotoId: STATE.currentPhotoId,
+    logoPos:  STATE.logoPos,
+    wmPos:    STATE.wmPos,
+    wmScale:  STATE.wmScale,
+    offX: STATE.offX, offY: STATE.offY,
+    xblocks: JSON.parse(JSON.stringify(STATE.xblocks)),
+  };
+}
+
+function pushHistory() {
+  if (histPaused) return;
+  history = history.slice(0, histIdx + 1);
+  history.push(makeSnapshot());
+  if (history.length > 50) history.shift();
+  histIdx = history.length - 1;
+  updateUndoUI();
+  pruneImgRegistry();
+}
+
+function pruneImgRegistry() {
+  // Collect all image IDs still referenced in history or current state
+  const live = new Set();
+  history.forEach(snap => {
+    if (snap.bgImgId)   live.add(snap.bgImgId);
+    if (snap.logoImgId) live.add(snap.logoImgId);
+  });
+  if (STATE.bgImgId)   live.add(STATE.bgImgId);
+  if (STATE.logoImgId) live.add(STATE.logoImgId);
+  // Delete any registry entries not in the live set
+  Object.keys(IMG_REGISTRY).forEach(id => {
+    if (!live.has(id)) delete IMG_REGISTRY[id];
+  });
+}
+
+function applySnapshot(snap) {
+  histPaused = true;
+
+  const setText = (id, val) => { const el = document.getElementById(id); if(el) el.value = val||''; };
+  const setSldr = (id, val, lblId, fmt) => {
+    const el = document.getElementById(id); if(el) el.value = val;
+    const lb = document.getElementById(lblId); if(lb) lb.textContent = fmt(val);
+  };
+
+  setText('inp-main', snap.main); setText('inp-sub',  snap.sub);
+  setText('inp-ref',  snap.ref);  setText('inp-src',  snap.src);
+  setText('inp-date', snap.date); setText('inp-wm',   snap.wm);
+
+  setSldr('sld-msz',   snap.msz||1.2,  'val-msz',   v => v+'×');
+  setSldr('sld-scale', snap.scale||1,  'val-scale',  v => parseFloat(v).toFixed(2)+'×');
+  setSldr('sld-lh',    snap.lh||1.5,   'val-lh',    v => parseFloat(v).toFixed(2));
+  setSldr('sld-pad',   snap.pad||180,  'val-pad',   v => v);
+  setSldr('sld-vpos',  snap.vpos||28,  'val-vpos',  v => v+'%');
+  setSldr('sld-dim',   snap.dim||75,   'val-dim',   v => v+'%');
+  setSldr('sld-vig',   snap.vig||60,   'val-vig',   v => v+'%');
+  setSldr('sld-blur',  snap.blur||0,   'val-blur',  v => v+'px');
+  setSldr('sld-shad',  snap.shad||50,  'val-shad',  v => v+'%');
+  setSldr('sld-patop', snap.patop||12, 'val-patop', v => v+'%');
+  setSldr('sld-lgsz',  snap.lgsz||1,  'val-lgsz',  v => parseFloat(v).toFixed(2)+'×');
+  setSldr('sld-wmsz',  snap.wmScale||1.0, 'val-wmsz', v => parseFloat(v).toFixed(1)+'×');
+  setSldr('sld-subsz', snap.subScale||0.5, 'val-subsz', v => Math.round(parseFloat(v)*100)+'%');
+
+  STATE.accent   = snap.accent   || '#d4a843';
+  STATE.ovColor  = snap.ovColor  || '#080d18';
+  STATE.align    = snap.align    || 'center';
+  STATE.layout   = snap.layout   || 'on';
+  STATE.font     = snap.font     || 'chathura';
+  STATE.chathuraWeight = snap.chathuraWeight || 700;
+  STATE.textColor = snap.textColor || '#ffffff';
+  STATE.subScale = snap.subScale || 0.5;
+  STATE.autoFit  = !!snap.autoFit;
+  STATE.gradText = !!snap.gradText;
+  STATE.deco     = snap.deco     || 'line';
+  STATE.pattern  = snap.pattern  || 'none';
+  STATE.bgPreset     = snap.bgPreset !== undefined ? snap.bgPreset : 'night';
+  STATE.bgImgId      = snap.bgImgId   || null;
+  STATE.logoImgId    = snap.logoImgId || null;
+  STATE.currentPhotoId = snap.currentPhotoId || null;
+  // Restore actual image objects from registry
+  STATE.bgImg   = lookupImg(STATE.bgImgId);
+  STATE.logoImg = lookupImg(STATE.logoImgId);
+  // Sync upload zone UI to reflect restored image state
+  const _bgz = document.getElementById('bg-upload-zone');
+  const _bgt = document.getElementById('bg-upload-title');
+  const _clr = document.getElementById('btn-clear-bg');
+  const _lz  = document.getElementById('lbl-logo-zone');
+  const _clrl= document.getElementById('btn-clear-logo');
+  if (STATE.bgImg && _bgz)  { _bgz.classList.add('has-file'); if(_clr) _clr.classList.add('visible'); }
+  else if (_bgz)            { _bgz.classList.remove('has-file'); if(_clr) _clr.classList.remove('visible'); }
+  if (STATE.logoImg && _lz) { if(_clrl) _clrl.classList.add('visible'); }
+  else if (_lz)             { if(_clrl) _clrl.classList.remove('visible'); }
+  // Restore upload zone title text
+  if (_bgt && snap.bgUploadLabel) _bgt.textContent = snap.bgUploadLabel;
+  else if (_bgt && !STATE.bgImg) {
+    const _t = LANG[STATE.lang]; if (_t) _bgt.textContent = _t['bg-upload-title'] || 'Upload Photo';
+  }
+  STATE.logoPos  = snap.logoPos  || 'top-center';
+  STATE.wmPos    = snap.wmPos    || 'bot-right';
+  STATE.wmScale  = snap.wmScale  || 1.0;
+  STATE.offX     = snap.offX || 0;
+  STATE.offY     = snap.offY || 0;
+  STATE.xblocks  = JSON.parse(JSON.stringify(snap.xblocks || []));
+
+  if (snap.fmt && snap.fmt !== STATE.fmt) { STATE.fmt = snap.fmt; resizeCanvas(); }
+
+  renderXBlocks();
+  syncUIToState();
+  histPaused = false;
+  schedRender();
+}
+
+// Sync all button/swatch active states to match STATE after undo/redo
+function syncUIToState() {
+  // Helper: set active button in a group by data-val
+  const setActive = (groupId, val) => {
+    const grp = document.getElementById(groupId);
+    if (!grp) return;
+    grp.querySelectorAll('.opt-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.val === String(val));
+    });
+  };
+  // Helper: set active swatch in a group by data-color
+  const setSwatch = (groupId, color, pickerId) => {
+    const grp = document.getElementById(groupId);
+    if (!grp) return;
+    let matched = false;
+    grp.querySelectorAll('.swatch').forEach(s => {
+      const match = s.dataset.color === color;
+      s.classList.toggle('active', match);
+      if (match) matched = true;
+    });
+    const picker = document.getElementById(pickerId);
+    if (picker) picker.value = color;
+  };
+
+  // Format buttons (two groups)
+  document.querySelectorAll('#grp-fmt .opt-btn, #grp-fmt-fb .opt-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.val === STATE.fmt);
+  });
+
+  setActive('grp-align',  STATE.align);
+  setActive('grp-layout', STATE.layout);
+  setActive('grp-font',   STATE.font);
+  setActive('grp-grad',   STATE.gradText ? 'on' : 'off');
+  setActive('grp-autofit', STATE.autoFit  ? 'on' : 'off');
+  setActive('grp-deco',   STATE.deco);
+  setActive('grp-pat',    STATE.pattern);
+  setActive('grp-lgpos',  STATE.logoPos);
+  setActive('grp-wmpos',  STATE.wmPos);
+
+  // Chathura weight, find the key for current weight value
+  const chwKey = Object.entries(CHATHURA_WEIGHTS).find(([k,v]) => v === STATE.chathuraWeight)?.[0] || 'bold';
+  setActive('grp-chw', chwKey);
+
+  // Show/hide chathura weight field
+  const cwf = document.getElementById('chathura-weight-field');
+  if (cwf) cwf.classList.toggle('visible', STATE.font === 'chathura');
+
+  // Swatches
+  setSwatch('grp-accent', STATE.accent, 'accent-picker');
+  setSwatch('grp-txtcol', STATE.textColor, 'txtcol-picker');
+  setSwatch('grp-ovc',    STATE.ovColor,   'ov-picker');
+
+  // Gradient preset buttons
+  document.querySelectorAll('#grp-preset .opt-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.val === STATE.bgPreset);
+  });
+
+  // Photo preset thumbs, activate by currentPhotoId, deactivate all if null
+  document.querySelectorAll('.photo-thumb').forEach(t => {
+    t.classList.toggle('active', t.dataset.pid === STATE.currentPhotoId);
+  });
+}
+
+function undo() { if (histIdx > 0) { histIdx--; applySnapshot(history[histIdx]); updateUndoUI(); } }
+function redo() { if (histIdx < history.length-1) { histIdx++; applySnapshot(history[histIdx]); updateUndoUI(); } }
+
+function updateUndoUI() {
+  document.getElementById('btn-undo').disabled = histIdx <= 0;
+  document.getElementById('btn-redo').disabled = histIdx >= history.length - 1;
+  document.getElementById('hist-count').textContent = history.length > 1 ? `${histIdx+1}/${history.length}` : '';
+}
+
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey||e.metaKey) && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
+  if ((e.ctrlKey||e.metaKey) && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) { e.preventDefault(); redo(); }
+});
+
+// ─── Drag text (mouse + touch) ───────────────────────────────
+let dragActive = false, dragStartX = 0, dragStartY = 0, dragOffX = 0, dragOffY = 0;
+
+function getDragPoint(e) {
+  // Returns {x, y} in canvas pixels from either mouse or first touch
+  const rect = cv.getBoundingClientRect();
+  const scaleX = cv.width  / rect.width;
+  const scaleY = cv.height / rect.height;
+  const src = e.touches ? e.touches[0] : e;
+  return {
+    x: (src.clientX - rect.left) * scaleX,
+    y: (src.clientY - rect.top)  * scaleY,
+  };
+}
+
+function startDrag(e) {
+  dragActive = true;
+  const pt = getDragPoint(e);
+  dragStartX = pt.x; dragStartY = pt.y;
+  dragOffX = STATE.offX; dragOffY = STATE.offY;
+  cv.style.cursor = 'grabbing';
+}
+function moveDrag(e) {
+  if (!dragActive) return;
+  if (e.cancelable) e.preventDefault(); // prevent scroll on touch
+  const pt = getDragPoint(e);
+  STATE.offX = dragOffX + pt.x - dragStartX;
+  STATE.offY = dragOffY + pt.y - dragStartY;
+  schedRender();
+}
+function endDrag() {
+  if (dragActive) { dragActive = false; cv.style.cursor = 'crosshair'; pushHistory(); }
+}
+
+cv.addEventListener('mousedown',  startDrag);
+cv.addEventListener('touchstart', startDrag, { passive: true });
+window.addEventListener('mousemove',  moveDrag);
+window.addEventListener('touchmove',  moveDrag, { passive: false });
+window.addEventListener('mouseup',    endDrag);
+window.addEventListener('touchend',   endDrag);
+
+// ─── UI: tabs ────────────────────────────────────────────────
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+// ─── UI: opt button groups ───────────────────────────────────
+function setupOptGroup(groupId, stateProp, onChange) {
+  const group = document.getElementById(groupId);
+  if (!group) return;
+  group.querySelectorAll('.opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      group.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (onChange) onChange(btn.dataset.val);
+      pushHistory(); schedRender();
+    });
+  });
+}
+
+// Both Instagram and Facebook format groups share the same state setter.
+// Clicking one group deactivates the other.
+function setFmtVal(val) {
+  STATE.fmt = val;
+  // Deactivate all buttons in both groups
+  document.querySelectorAll('#grp-fmt .opt-btn, #grp-fmt-fb .opt-btn').forEach(b => b.classList.remove('active'));
+  // Activate the clicked one
+  const btn = document.querySelector(`#grp-fmt [data-val="${val}"], #grp-fmt-fb [data-val="${val}"]`);
+  if (btn) btn.classList.add('active');
+  resizeCanvas();
+  pushHistory();
+  schedRender();
+}
+document.querySelectorAll('#grp-fmt .opt-btn, #grp-fmt-fb .opt-btn').forEach(btn => {
+  btn.addEventListener('click', () => setFmtVal(btn.dataset.val));
+});
+setupOptGroup('grp-align',  null,            val => { STATE.align = val; });
+setupOptGroup('grp-layout', null,            val => { STATE.layout = val; });
+setupOptGroup('grp-font', null, val => {
+  STATE.font = val;
+  const cwf = document.getElementById('chathura-weight-field');
+  if (cwf) cwf.classList.toggle('visible', val === 'chathura');
+});
+setupOptGroup('grp-chw', null, val => {
+  STATE.chathuraWeight = CHATHURA_WEIGHTS[val] || 700;
+});
+setupOptGroup('grp-grad',   null,            val => { STATE.gradText = (val === 'on'); });
+setupOptGroup('grp-autofit',null,            val => { STATE.autoFit  = (val === 'on'); });
+setupOptGroup('grp-deco',   null,            val => { STATE.deco = val; });
+setupOptGroup('grp-pat',    null,            val => { STATE.pattern = val; });
+setupOptGroup('grp-preset', null, val => {
+  STATE.bgPreset = val; STATE.bgImg = null; STATE.currentPhotoId = null;
+  document.querySelectorAll('.photo-thumb').forEach(t => t.classList.remove('active'));
+  document.getElementById('btn-clear-bg').classList.remove('visible');
+  resetBgUploadUI();
+});
+setupOptGroup('grp-lgpos',  null,            val => { STATE.logoPos = val; });
+setupOptGroup('grp-wmpos',  null,            val => { STATE.wmPos = val; });
+
+// ─── UI: sliders ─────────────────────────────────────────────
+function setupSlider(id, valId, fmt) {
+  const slider = document.getElementById(id);
+  const valEl  = document.getElementById(valId);
+  if (!slider || !valEl) return;
+  slider.addEventListener('input', () => {
+    valEl.textContent = fmt(slider.value);
+    schedRender();
+  });
+  slider.addEventListener('change', () => pushHistory());
+}
+
+setupSlider('sld-msz',   'val-msz',   v => v+'×');
+// sld-subsz: state update is wired inside setupSlider via schedRender,
+// but we also need to sync STATE.subScale on input
+document.getElementById('sld-subsz').addEventListener('input', () => {
+  STATE.subScale = parseFloat(document.getElementById('sld-subsz').value);
+  document.getElementById('val-subsz').textContent = Math.round(STATE.subScale * 100) + '%';
+  schedRender();
+});
+document.getElementById('sld-subsz').addEventListener('change', () => pushHistory());
+setupSlider('sld-scale', 'val-scale', v => parseFloat(v).toFixed(2)+'×');
+setupSlider('sld-lh',    'val-lh',    v => parseFloat(v).toFixed(2));
+setupSlider('sld-pad',   'val-pad',   v => v);
+setupSlider('sld-vpos',  'val-vpos',  v => v+'%');
+setupSlider('sld-dim',   'val-dim',   v => v+'%');
+setupSlider('sld-vig',   'val-vig',   v => v+'%');
+setupSlider('sld-blur',  'val-blur',  v => v+'px');
+setupSlider('sld-shad',  'val-shad',  v => v+'%');
+setupSlider('sld-patop', 'val-patop', v => v+'%');
+setupSlider('sld-lgsz',  'val-lgsz',  v => parseFloat(v).toFixed(2)+'×');
+setupSlider('sld-wmsz',  'val-wmsz',  v => parseFloat(v).toFixed(1)+'×');
+document.getElementById('sld-wmsz').addEventListener('input', () => {
+  STATE.wmScale = parseFloat(document.getElementById('sld-wmsz').value);
+  schedRender();
+});
+document.getElementById('sld-wmsz').addEventListener('change', () => pushHistory());
+
+// ─── UI: text inputs ─────────────────────────────────────────
+['inp-main','inp-sub','inp-ref','inp-src','inp-date','inp-wm'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('input', () => schedRender());
+  el.addEventListener('change', () => pushHistory());
+});
+
+// ─── UI: accent swatches ─────────────────────────────────────
+document.querySelectorAll('#grp-accent .swatch').forEach(sw => {
+  sw.addEventListener('click', () => {
+    document.querySelectorAll('#grp-accent .swatch').forEach(s => s.classList.remove('active'));
+    sw.classList.add('active');
+    STATE.accent = sw.dataset.color;
+    document.getElementById('accent-picker').value = sw.dataset.color;
+    pushHistory(); schedRender();
+  });
+});
+document.getElementById('accent-picker').addEventListener('input', e => {
+  document.querySelectorAll('#grp-accent .swatch').forEach(s => s.classList.remove('active'));
+  STATE.accent = e.target.value;
+  schedRender();
+});
+document.getElementById('accent-picker').addEventListener('change', () => pushHistory());
+
+// ─── UI: text color swatches ────────────────────────────────
+document.querySelectorAll('#grp-txtcol .swatch').forEach(sw => {
+  sw.addEventListener('click', () => {
+    document.querySelectorAll('#grp-txtcol .swatch').forEach(s => s.classList.remove('active'));
+    sw.classList.add('active');
+    STATE.textColor = sw.dataset.color;
+    document.getElementById('txtcol-picker').value = sw.dataset.color;
+    pushHistory(); schedRender();
+  });
+});
+document.getElementById('txtcol-picker').addEventListener('input', e => {
+  document.querySelectorAll('#grp-txtcol .swatch').forEach(s => s.classList.remove('active'));
+  STATE.textColor = e.target.value;
+  schedRender();
+});
+document.getElementById('txtcol-picker').addEventListener('change', () => pushHistory());
+
+// ─── UI: overlay swatches ─────────────────────────────────────
+document.querySelectorAll('#grp-ovc .swatch').forEach(sw => {
+  sw.addEventListener('click', () => {
+    document.querySelectorAll('#grp-ovc .swatch').forEach(s => s.classList.remove('active'));
+    sw.classList.add('active');
+    STATE.ovColor = sw.dataset.color;
+    document.getElementById('ov-picker').value = sw.dataset.color;
+    schedRender();
+  });
+});
+document.getElementById('ov-picker').addEventListener('input', e => {
+  document.querySelectorAll('#grp-ovc .swatch').forEach(s => s.classList.remove('active'));
+  STATE.ovColor = e.target.value;
+  schedRender();
+});
+document.getElementById('ov-picker').addEventListener('change', () => pushHistory());
+
+// ─── UI: theme toggle (synced with portal via shared key) ────
+function applyTheme(theme) {
+  if (theme !== 'light' && theme !== 'dark') theme = 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+  document.body.classList.toggle('dark', theme === 'dark');
+  const btn = document.getElementById('theme-btn');
+  if (btn) btn.textContent = theme === 'dark' ? '☾' : '☀';
+  try { localStorage.setItem('cbm_theme', theme); } catch (e) {}
+  schedRender();
+}
+
+let initialTheme = null;
+try { initialTheme = localStorage.getItem('cbm_theme'); } catch (e) {}
+if (!initialTheme) {
+  initialTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+applyTheme(initialTheme);
+
+document.getElementById('theme-btn').addEventListener('click', () => {
+  const next = (document.documentElement.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
+  applyTheme(next);
+});
+
+// React to system theme changes when no explicit choice
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+  let userPick = null;
+  try { userPick = localStorage.getItem('cbm_theme'); } catch (_) {}
+  // Always update; the user's last manual choice already lives in storage
+  if (!userPick) applyTheme(e.matches ? 'dark' : 'light');
+});
+
+// ─── UI: language ────────────────────────────────────────────
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    STATE.lang = btn.dataset.lang;
+    applyLang(STATE.lang);
+    schedRender();
+  });
+});
+
+// ─── UI: bg upload ───────────────────────────────────────────
+const bgZone = document.getElementById('bg-upload-zone');
+bgZone.addEventListener('click', () => document.getElementById('bg-file-input').click());
+bgZone.addEventListener('dragover', e => { e.preventDefault(); bgZone.classList.add('dragging'); });
+bgZone.addEventListener('dragleave', () => bgZone.classList.remove('dragging'));
+bgZone.addEventListener('drop', e => {
+  e.preventDefault(); bgZone.classList.remove('dragging');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) loadBgFile(file);
+});
+document.getElementById('bg-file-input').addEventListener('change', e => {
+  if (e.target.files[0]) loadBgFile(e.target.files[0]);
+});
+
+document.getElementById('btn-clear-bg').addEventListener('click', () => {
+  STATE.bgImg = null; STATE.bgImgId = null; STATE.bgPreset = 'night'; STATE.currentPhotoId = null;
+  document.getElementById('bg-file-input').value = '';
+  document.querySelectorAll('.photo-thumb').forEach(t => t.classList.remove('active'));
+  // Re-activate night gradient preset button
+  document.querySelectorAll('#grp-preset .opt-btn').forEach(b => b.classList.remove('active'));
+  const nightBtn = document.querySelector('#grp-preset [data-val="night"]');
+  if (nightBtn) nightBtn.classList.add('active');
+  resetBgUploadUI();
+  document.getElementById('btn-clear-bg').classList.remove('visible');
+  pushHistory(); schedRender();
+});
+
+function loadBgFile(file) {
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      STATE.bgImg = img;
+      STATE.bgImgId = registerImg(img);
+      STATE.bgPreset = null;        // clear stale gradient preset
+      STATE.currentPhotoId = null;  // clear stale photo preset
+      bgZone.classList.add('has-file');
+      document.getElementById('bg-upload-title').textContent = file.name;
+      document.getElementById('btn-clear-bg').classList.add('visible');
+      pushHistory();
+      schedRender();
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function resetBgUploadUI() {
+  bgZone.classList.remove('has-file');
+  const t = LANG[STATE.lang];
+  document.getElementById('bg-upload-title').textContent = t ? t['bg-upload-title'] : 'Upload Photo';
+}
+
+// ─── UI: logo upload ─────────────────────────────────────────
+const logoZone = document.getElementById('logo-upload-zone');
+logoZone.addEventListener('click', () => document.getElementById('logo-file-input').click());
+document.getElementById('logo-file-input').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      STATE.logoImg = img;
+      STATE.logoImgId = registerImg(img);
+      document.getElementById('lbl-logo-zone').textContent = file.name;
+      document.getElementById('btn-clear-logo').classList.add('visible');
+      pushHistory();
+      schedRender();
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+document.getElementById('btn-clear-logo').addEventListener('click', () => {
+  STATE.logoImg = null; STATE.logoImgId = null;
+  document.getElementById('logo-file-input').value = '';
+  document.getElementById('lbl-logo-zone').textContent =
+    LANG[STATE.lang]['lbl-logo-zone'] || '+ Upload Logo (PNG)';
+  document.getElementById('btn-clear-logo').classList.remove('visible');
+  pushHistory(); schedRender();
+});
+
+// ─── UI: today button ────────────────────────────────────────
+document.getElementById('lbl-today').addEventListener('click', () => {
+  const now = new Date();
+  const t = LANG[STATE.lang];
+  let str;
+  if (STATE.lang === 'cs' && t.CS_DAYS) {
+    str = `${t.CS_DAYS[now.getDay()]}, ${now.getDate()}. ${t.CS_MTHS[now.getMonth()]} ${now.getFullYear()}`;
+  } else {
+    str = now.toLocaleDateString('en-IN', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+  }
+  document.getElementById('inp-date').value = str;
+  pushHistory(); schedRender();
+});
+
+// ─── UI: extra label blocks ──────────────────────────────────
+document.getElementById('lbl-add-xblock').addEventListener('click', addXBlock);
+
+function addXBlock() {
+  STATE.xblocks.push({ id: 'xb' + (STATE._xid++), text: '' });
+  renderXBlocks();
+  schedRender();
+}
+
+function removeXBlock(id) {
+  STATE.xblocks = STATE.xblocks.filter(b => b.id !== id);
+  renderXBlocks(); pushHistory(); schedRender();
+}
+
+function renderXBlocks() {
+  const container = document.getElementById('xblocks-container');
+  container.innerHTML = '';
+  const t = LANG[STATE.lang];
+  STATE.xblocks.forEach((block, i) => {
+    const div = document.createElement('div');
+    div.className = 'xblock';
+    div.innerHTML = `
+      <div class="xblock-header">
+        <span class="xblock-title">Label ${i+1}</span>
+        <button class="xblock-del" data-xid="${block.id}">✕</button>
+      </div>
+      <input type="text" value="${block.text.replace(/"/g,'&quot;')}"
+        placeholder="${t ? t.ph_xb : 'Extra info...'}"
+        data-xid="${block.id}">`;
+    container.appendChild(div);
+  });
+
+  // wire up events
+  container.querySelectorAll('.xblock-del').forEach(btn => {
+    btn.addEventListener('click', () => removeXBlock(btn.dataset.xid));
+  });
+  container.querySelectorAll('input').forEach(inp => {
+    inp.addEventListener('input', () => {
+      const block = STATE.xblocks.find(b => b.id === inp.dataset.xid);
+      if (block) { block.text = inp.value; schedRender(); }
+    });
+    inp.addEventListener('change', () => pushHistory());
+  });
+}
+
+// ─── UI: undo/redo buttons ───────────────────────────────────
+document.getElementById('btn-undo').addEventListener('click', undo);
+document.getElementById('btn-redo').addEventListener('click', redo);
+
+// ─── Export ──────────────────────────────────────────────────
+document.getElementById('btn-png').addEventListener('click', () => exportImage('png'));
+document.getElementById('btn-jpg').addEventListener('click', () => exportImage('jpg'));
+document.getElementById('btn-copy').addEventListener('click', copyImage);
+document.getElementById('cv-copy-btn').addEventListener('click', copyImage);
+document.getElementById('cv-reset-btn').addEventListener('click', resetAll);
+
+function buildExportFilename(type) {
+  const slug = (s) => (s || '')
+    .toString()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 60);
+  const ref = slug(document.getElementById('inp-ref')?.value || '');
+  const main = slug((document.getElementById('inp-main')?.value || '').slice(0, 40));
+  const fmt = (STATE.fmt || 'post').replace('_', '-');
+  const datePart = new Date().toISOString().slice(0,10);
+  const stem = ref || main || 'cbm';
+  return `cbm-${stem}-${fmt}-${datePart}.${type}`;
+}
+
+function exportImage(type) {
+  const link = document.createElement('a');
+  const mime = type === 'jpg' ? 'image/jpeg' : 'image/png';
+  const quality = type === 'jpg' ? 0.94 : 1.0;
+  link.download = buildExportFilename(type);
+  link.href = cv.toDataURL(mime, quality);
+  link.click();
+  showSaved();
+}
+
+async function copyImage() {
+  // Guard: check clipboard API and ClipboardItem support
+  if (!navigator.clipboard || !window.ClipboardItem) {
+    exportImage('png'); return;
+  }
+  try {
+    cv.toBlob(async blob => {
+      if (!blob) { exportImage('png'); return; }
+      try {
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+        showSaved();
+      } catch (innerErr) {
+        // Clipboard write failed (permissions, browser policy, canvas taint)
+        console.warn('Clipboard write failed:', innerErr);
+        exportImage('png');
+      }
+    }, 'image/png');
+  } catch (e) {
+    exportImage('png');
+  }
+}
+
+function showSaved() {
+  const pill = document.getElementById('saved-pill');
+  const t = LANG[STATE.lang];
+  pill.textContent = t ? t.saved : '✓ Done';
+  pill.style.display = 'inline-flex';
+  setTimeout(() => pill.style.display = 'none', 2000);
+}
+
+// ─── Reset ───────────────────────────────────────────────────
+// Full reset: restores ALL design controls to defaults, not just content.
+function resetAll() {
+  const t = LANG[STATE.lang];
+
+  // ── Content ──
+  document.getElementById('inp-main').value = t.def_main;
+  document.getElementById('inp-sub').value  = t.def_sub;
+  document.getElementById('inp-ref').value  = t.def_ref;
+  document.getElementById('inp-src').value  = t.def_src;
+  document.getElementById('inp-date').value = '';
+  document.getElementById('inp-wm').value   = t.def_wm;
+  STATE.xblocks = []; STATE.offX = 0; STATE.offY = 0;
+
+  // ── Images ──
+  STATE.bgImg = null; STATE.bgImgId = null;
+  STATE.logoImg = null; STATE.logoImgId = null;
+  STATE.currentPhotoId = null;
+  document.getElementById('bg-file-input').value   = '';
+  document.getElementById('logo-file-input').value = '';
+  resetBgUploadUI();
+  document.querySelectorAll('.photo-thumb').forEach(p => p.classList.remove('active'));
+  document.getElementById('btn-clear-bg').classList.remove('visible');
+  document.getElementById('btn-clear-logo').classList.remove('visible');
+  document.getElementById('lbl-logo-zone').textContent = t['lbl-logo-zone'] || '+ Upload Logo (PNG)';
+
+  // ── Design ──
+  STATE.fmt           = 'ig_square';
+  STATE.align         = 'center';
+  STATE.layout        = 'on';
+  STATE.font          = 'chathura';
+  STATE.chathuraWeight= 700;
+  STATE.accent        = '#d4a843';
+  STATE.textColor     = '#ffffff';
+  STATE.gradText      = false;
+  STATE.autoFit       = false;
+  STATE.deco          = 'line';
+  STATE.pattern       = 'none';
+  STATE.bgPreset      = 'night';
+  STATE.ovColor       = '#080d18';
+  STATE.logoPos       = 'top-center';
+  STATE.wmPos         = 'bot-right';
+  STATE.wmScale       = 1.0;
+  STATE.subScale      = 0.5;
+
+  // ── Sliders ──
+  const setSldrVal = (id, val, lblId, fmt) => {
+    const el = document.getElementById(id); if (el) el.value = val;
+    const lb = document.getElementById(lblId); if (lb) lb.textContent = fmt(val);
+  };
+  setSldrVal('sld-msz',   1.2,  'val-msz',   v => v+'×');
+  setSldrVal('sld-subsz', 0.5,  'val-subsz',  v => Math.round(parseFloat(v)*100)+'%');
+  setSldrVal('sld-scale', 1.0,  'val-scale',  v => parseFloat(v).toFixed(2)+'×');
+  setSldrVal('sld-lh',    1.5,  'val-lh',    v => parseFloat(v).toFixed(2));
+  setSldrVal('sld-pad',   180,  'val-pad',   v => v);
+  setSldrVal('sld-vpos',  28,   'val-vpos',  v => v+'%');
+  setSldrVal('sld-dim',   75,   'val-dim',   v => v+'%');
+  setSldrVal('sld-vig',   60,   'val-vig',   v => v+'%');
+  setSldrVal('sld-blur',  0,    'val-blur',  v => v+'px');
+  setSldrVal('sld-shad',  50,   'val-shad',  v => v+'%');
+  setSldrVal('sld-patop', 12,   'val-patop', v => v+'%');
+  setSldrVal('sld-lgsz',  1.0,  'val-lgsz',  v => parseFloat(v).toFixed(2)+'×');
+  setSldrVal('sld-wmsz',  1.0,  'val-wmsz',  v => parseFloat(v).toFixed(1)+'×');
+
+  // ── Sync all UI buttons/swatches to new state ──
+  renderXBlocks();
+  resizeCanvas();
+  syncUIToState();
+  pushHistory();
+  schedRender();
+}
+
+// ─── Init ────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  resizeCanvas();
+  // Restore language from shared portal key (default 'en')
+  let savedLang = 'en';
+  try { savedLang = localStorage.getItem('cbm_lang_v1') || 'en'; } catch (e) {}
+  if (!LANG[savedLang]) savedLang = 'en';
+  STATE.lang = savedLang;
+  applyLang(savedLang);
+  const t = LANG[savedLang];
+  document.getElementById('inp-main').value = t.def_main;
+  document.getElementById('inp-sub').value  = t.def_sub;
+  document.getElementById('inp-ref').value  = t.def_ref;
+  document.getElementById('inp-src').value  = t.def_src;
+  document.getElementById('inp-wm').value   = t.def_wm;
+  buildPhotoGrid();
+  const cwf = document.getElementById('chathura-weight-field');
+  if (cwf) cwf.classList.add('visible');
+
+  // Pre-warm Telugu font faces before first canvas draw.
+  // This prevents the "tofu box" flash when glyphs aren't loaded yet.
+  const fontPreloads = [
+    document.fonts.load('100 80px "Chathura"'),
+    document.fonts.load('300 80px "Chathura"'),
+    document.fonts.load('400 80px "Chathura"'),
+    document.fonts.load('700 80px "Chathura"'),
+    document.fonts.load('800 80px "Chathura"'),
+    document.fonts.load('700 80px "Noto Sans Telugu"'),
+    document.fonts.load('700 80px "Noto Serif Telugu"'),
+    document.fonts.load('400 80px "Tiro Telugu"'),
+    document.fonts.load('700 80px "Playfair Display"'),
+  ];
+  Promise.allSettled(fontPreloads).then(() => {
+    pushHistory();
+    schedRender();
+  });
+});
+
+window.addEventListener('resize', () => { resizeCanvas(); schedRender(); });
+</script>
+</body>
+</html>

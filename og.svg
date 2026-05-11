@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F5F7F8"/>
+    </linearGradient>
+    <linearGradient id="rule" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#114D5D" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#114D5D" stop-opacity="1"/>
+      <stop offset="1" stop-color="#114D5D" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <text x="600" y="180" font-family="'DM Mono', monospace" font-size="18" font-weight="600"
+        letter-spacing="6" fill="#114D5D" text-anchor="middle">CONTENT REPURPOSER</text>
+
+  <text x="600" y="285" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="800"
+        letter-spacing="-2" fill="#0B2F39" text-anchor="middle">From your library to</text>
+  <text x="600" y="370" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="800"
+        letter-spacing="-2" fill="#114D5D" text-anchor="middle">everyday content.</text>
+
+  <rect x="540" y="410" width="120" height="2" rx="1" fill="url(#rule)"/>
+
+  <text x="600" y="465" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="400"
+        fill="#4B5563" text-anchor="middle">Upload an article, sermon, or book chapter, and turn it into</text>
+  <text x="600" y="498" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="400"
+        fill="#4B5563" text-anchor="middle">Q&amp;A, articles, key quotes, or social posts.</text>
+
+  <line x1="80" y1="560" x2="1120" y2="560" stroke="#E5E7EB" stroke-width="1"/>
+
+  <rect x="80" y="572" width="56" height="32" rx="6" fill="#114D5D"/>
+  <text x="108" y="594" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="800"
+        letter-spacing="1" fill="#FFFFFF" text-anchor="middle">CBM</text>
+  <text x="150" y="595" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700"
+        letter-spacing="0" fill="#1F2937">Center for Biblical Missions</text>
+
+  <text x="1120" y="595" font-family="'DM Mono', monospace" font-size="13" font-weight="500"
+        letter-spacing="2" fill="#6B7280" text-anchor="end">CONTENT GENERATOR · v1</text>
+</svg>
