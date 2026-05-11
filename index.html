@@ -107,18 +107,19 @@ a:hover { color: var(--navy-bright); }
   text-decoration: none;
 }
 .brand-mark {
-  width: 42px;
-  height: 42px;
+  width: 52px;
+  height: 52px;
   background: var(--navy-darkest);
-  border-radius: 8px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   transition: background .25s var(--ease), transform .25s var(--ease-out);
+  padding: 5px;
 }
-.brand:hover .brand-mark { background: var(--navy); transform: rotate(-3deg); }
-.brand-mark img { width: 26px; height: 26px; object-fit: contain; display: block; }
+.brand:hover .brand-mark { background: var(--navy); transform: rotate(-6deg); }
+.brand-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .brand-text {
   display: flex;
   flex-direction: column;
@@ -681,14 +682,14 @@ section { scroll-margin-top: 100px; }
   .footer-inner { grid-template-columns: 1fr; gap: 24px; }
 }
 .footer-logo {
-  width: 52px;
-  height: 52px;
+  width: 72px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 18px;
+  margin-bottom: 22px;
 }
-.footer-logo img { width: 52px; height: 52px; object-fit: contain; display: block; }
+.footer-logo img { width: 72px; height: 72px; object-fit: contain; display: block; }
 .footer-brand-name {
   font-family: var(--sans);
   font-weight: 800;
