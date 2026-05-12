@@ -612,6 +612,32 @@ img { max-width: 100%; height: auto; display: block; }
   margin: 0;
 }
 .step-desc strong { color: var(--ink-anchor); font-weight: 600; }
+.step-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--navy-deep);
+  background: var(--navy-soft);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  padding: 11px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+  margin-top: 18px;
+  border: 1px solid var(--navy-glow);
+  transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease), transform .15s ease;
+}
+.step-cta:hover {
+  background: var(--ink-anchor);
+  color: var(--white);
+  border-color: var(--ink-anchor);
+  transform: translateY(-1px);
+}
+.step-cta .arrow { transition: transform .2s ease; display: inline-block; }
+.step-cta:hover .arrow { transform: translateX(3px); }
 
 /* Library panel */
 .media-hero {
@@ -1394,7 +1420,7 @@ img { max-width: 100%; height: auto; display: block; }
 </head>
 <body>
 
-<div class="topline">Center for Biblical Missions · Internal Content Tool · v1</div>
+<div class="topline">Center for Biblical Missions · Internal Content Tool · v3.5</div>
 
 <header class="site-header">
   <div class="header-inner">
@@ -1405,7 +1431,7 @@ img { max-width: 100%; height: auto; display: block; }
         <div class="brand-sub">Content Tool</div>
       </div>
     </a>
-    <div class="header-meta">v1 · internal tool</div>
+    <div class="header-meta">v3.5 · internal tool</div>
   </div>
 </header>
 
@@ -1534,6 +1560,9 @@ img { max-width: 100%; height: auto; display: block; }
           <div class="step-eyebrow">Step 1 · Upload</div>
           <h3 class="step-title">Upload a Source</h3>
           <p class="step-desc">Open the <strong>upload form</strong> and pick a file. An article, book chapter, sermon, or PDF. After submission, the text is automatically split, indexed, and stored in its own namespace. Larger sources take 1 to 3 minutes.</p>
+          <a class="step-cta" href="https://modulusai.app.n8n.cloud/form/87597199-a791-47cb-a72b-50991020459c" target="_blank" rel="noopener" id="btn-upload-step">
+            Open Upload Form <span class="arrow">→</span>
+          </a>
         </div>
       </div>
       <div class="step">
@@ -1542,6 +1571,9 @@ img { max-width: 100%; height: auto; display: block; }
           <div class="step-eyebrow">Step 2 · Generate</div>
           <h3 class="step-title">Generate Text</h3>
           <p class="step-desc">Open the <strong>content generator</strong>, pick the uploaded source, and choose an output type: Q&amp;A, article, key quotes, or social posts. Add specific topics or audience notes if helpful.</p>
+          <a class="step-cta" href="https://modulusai.app.n8n.cloud/form/14a6129e-1f79-4409-868e-2b5220b4762a" target="_blank" rel="noopener" id="btn-generate-step">
+            Open Generator <span class="arrow">→</span>
+          </a>
         </div>
       </div>
       <div class="step">
@@ -1558,6 +1590,9 @@ img { max-width: 100%; height: auto; display: block; }
           <div class="step-eyebrow">Step 4 · Graphic</div>
           <h3 class="step-title">Make a Graphic</h3>
           <p class="step-desc">Open the <strong>graphic generator</strong>, paste a verse or pull-quote into the main field, and pick a format. Adjust font, colors, and background. Export as PNG, JPG, or copy to clipboard.</p>
+          <a class="step-cta" href="generator/" id="btn-graphic-step">
+            Open Graphic Generator <span class="arrow">→</span>
+          </a>
         </div>
       </div>
       <div class="step">
@@ -1599,7 +1634,7 @@ img { max-width: 100%; height: auto; display: block; }
     <div>
       <div class="footer-logo"><img src="assets/CBM-Icon-White.webp" alt="CBM"/></div>
       <div class="footer-brand-name">Center for Biblical Missions</div>
-      <div class="footer-brand-sub">Content Tool · v1</div>
+      <div class="footer-brand-sub">Content Tool · v3.5</div>
       <p class="footer-desc">An internal content repurposing tool for CBM, built on the n8n + Pinecone stack. Source material stays in CBM's dedicated namespace.</p>
     </div>
     <div class="footer-links">
