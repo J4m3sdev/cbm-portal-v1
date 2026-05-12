@@ -68,6 +68,132 @@ img { max-width: 100%; height: auto; display: block; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 
+/* ─────────────────────────────────────────────────────────────
+   TEAM PASSWORD GATE
+   ───────────────────────────────────────────────────────────── */
+.auth-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background:
+    linear-gradient(135deg, var(--navy-darkest) 0%, var(--navy-deep) 100%),
+    radial-gradient(ellipse at 30% 20%, rgba(26,110,132,.3), transparent 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: auth-fade-in .35s var(--ease-out);
+}
+.auth-gate.hidden { display: none; }
+@keyframes auth-fade-in { from { opacity: 0; } to { opacity: 1; } }
+.auth-card {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 48px 40px 36px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 28px 70px rgba(0,0,0,.45), 0 4px 14px rgba(0,0,0,.18);
+  animation: auth-pop .55s var(--ease-out);
+}
+@keyframes auth-pop {
+  from { opacity: 0; transform: translateY(20px) scale(.96); }
+  to   { opacity: 1; transform: none; }
+}
+.auth-mark {
+  width: 64px;
+  height: 64px;
+  background: var(--navy-darkest);
+  border-radius: 50%;
+  margin: 0 auto 22px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.auth-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.auth-brand {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 19px;
+  color: var(--ink-anchor);
+  letter-spacing: -0.012em;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.auth-sub {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.20em;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.auth-instructions {
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  margin: 0 0 22px;
+  line-height: 1.55;
+}
+.auth-form { display: flex; flex-direction: column; gap: 12px; }
+.auth-input {
+  font-family: var(--sans);
+  font-size: 15px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--rule-strong);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--ink-anchor);
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+.auth-input:focus { border-color: var(--navy); box-shadow: 0 0 0 4px rgba(17,77,93,.12); }
+.auth-input::placeholder { color: var(--ink-muted); letter-spacing: 0; }
+.auth-submit {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--ink-anchor);
+  color: var(--white);
+  border: 1.5px solid var(--ink-anchor);
+  padding: 15px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .2s ease, transform .15s ease, border-color .2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.auth-submit:hover { background: var(--navy); border-color: var(--navy); transform: translateY(-1px); }
+.auth-submit:active { transform: translateY(0); }
+.auth-submit .arrow { transition: transform .2s ease; display: inline-block; }
+.auth-submit:hover .arrow { transform: translateX(3px); }
+.auth-error {
+  font-size: 12.5px;
+  color: #C13030;
+  margin-top: 14px;
+  height: 18px;
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+.auth-error.show { opacity: 1; }
+.auth-hint {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  margin-top: 18px;
+}
+@media (max-width: 480px) {
+  .auth-card { padding: 36px 28px 28px; }
+}
+
 /* Topline */
 .topline {
   background: var(--navy-darkest);
@@ -1420,7 +1546,23 @@ img { max-width: 100%; height: auto; display: block; }
 </head>
 <body>
 
-<div class="topline">Center for Biblical Missions · Internal Content Tool · v3.5</div>
+<!-- Team password gate -->
+<div class="auth-gate" id="auth-gate">
+  <div class="auth-card">
+    <div class="auth-mark"><img src="assets/CBM-Icon-White.webp" alt=""/></div>
+    <div class="auth-brand">Center for Biblical Missions</div>
+    <div class="auth-sub">Internal Content Tool</div>
+    <p class="auth-instructions">Enter the team password to continue.</p>
+    <form class="auth-form" id="auth-form">
+      <input type="password" class="auth-input" id="auth-input" placeholder="Team password" autocomplete="off" autofocus required/>
+      <button type="submit" class="auth-submit">Enter <span class="arrow">→</span></button>
+    </form>
+    <div class="auth-error" id="auth-error">Incorrect password. Try again.</div>
+    <div class="auth-hint">Shared across the CBM team.</div>
+  </div>
+</div>
+
+<div class="topline">Center for Biblical Missions · Internal Content Tool · v3.6</div>
 
 <header class="site-header">
   <div class="header-inner">
@@ -1431,7 +1573,7 @@ img { max-width: 100%; height: auto; display: block; }
         <div class="brand-sub">Content Tool</div>
       </div>
     </a>
-    <div class="header-meta">v3.5 · internal tool</div>
+    <div class="header-meta">v3.6 · internal tool</div>
   </div>
 </header>
 
@@ -1634,7 +1776,7 @@ img { max-width: 100%; height: auto; display: block; }
     <div>
       <div class="footer-logo"><img src="assets/CBM-Icon-White.webp" alt="CBM"/></div>
       <div class="footer-brand-name">Center for Biblical Missions</div>
-      <div class="footer-brand-sub">Content Tool · v3.5</div>
+      <div class="footer-brand-sub">Content Tool · v3.6</div>
       <p class="footer-desc">An internal content repurposing tool for CBM, built on the n8n + Pinecone stack. Source material stays in CBM's dedicated namespace.</p>
     </div>
     <div class="footer-links">
@@ -1651,6 +1793,45 @@ img { max-width: 100%; height: auto; display: block; }
 </footer>
 
 <script>
+// ── Team password gate ─────────────────────────────────────────
+(function authGate() {
+  const STORAGE_KEY = 'cbm_auth_v1';
+  // SHA-256 of the current team password. To change the password, replace this hash.
+  // Compute a new hash with:  echo -n "yourpassword" | shasum -a 256
+  const HASH = '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225';
+  const gate = document.getElementById('auth-gate');
+  if (!gate) return;
+  const form = document.getElementById('auth-form');
+  const input = document.getElementById('auth-input');
+  const errorEl = document.getElementById('auth-error');
+
+  if (localStorage.getItem(STORAGE_KEY) === HASH) {
+    gate.classList.add('hidden');
+    return;
+  }
+  document.body.style.overflow = 'hidden';
+
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const hash = await sha256(input.value);
+    if (hash === HASH) {
+      localStorage.setItem(STORAGE_KEY, HASH);
+      gate.classList.add('hidden');
+      document.body.style.overflow = '';
+    } else {
+      errorEl.classList.add('show');
+      input.value = '';
+      input.focus();
+      setTimeout(() => errorEl.classList.remove('show'), 2400);
+    }
+  });
+})();
+
 const tabs = document.querySelectorAll('.tab');
 const panels = document.querySelectorAll('.panel');
 const indicator = document.querySelector('.tab-indicator');
